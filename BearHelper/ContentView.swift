@@ -1,21 +1,8 @@
-//
-//  ContentView.swift
-//  BearHelper
-//
-//  Created by David Velasco on 24/6/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        EmptyView() // or any minimal view content
     }
 }
 
