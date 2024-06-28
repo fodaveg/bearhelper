@@ -9,10 +9,54 @@ import SwiftUI
 
 struct AboutView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            HStack {
+                if let appIcon = NSImage(named: "AppIcon") {
+                    Image(nsImage: appIcon)
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                } else {
+                    Text("App Icon not found")
+                }
+                VStack(alignment: .leading) {
+                    Text("BearHelper")
+                        .font(.title)
+                    Text("Version 1.0.0") // Actualiza con la versión real
+                        .font(.subheadline)
+                }
+            }
+            .padding()
+            Divider()
+            HStack {
+                Image(systemName: "envelope.fill")
+                    .foregroundColor(.blue)
+                Text("Email:")
+                Link("fodaveg@fodaveg.net", destination: URL(string: "mailto:fodaveg@fodaveg.net")!)
+            }
+            .padding(.vertical, 5)
+            HStack {
+                if let mastodonIcon = NSImage(named: "mastodon") {
+                    Image(nsImage: mastodonIcon)
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                } else {
+                    Text("Mastodon Icon not found")
+                }
+                Text("Mastodon:")
+                Link("@fodaveg", destination: URL(string: "https://masto.es/@fodaveg")!)
+            }
+            .padding(.vertical, 5)
+            Spacer()
+        }
+        .padding()
+        .frame(width: 300, height: 200)
     }
 }
 
-#Preview {
-    AboutView()
+
+struct AboutView_Previews: PreviewProvider {
+    static var previews: some View {
+        AboutView()
+    }
 }

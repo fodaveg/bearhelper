@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Template: Identifiable, Codable {
+    var id = UUID()
+    var name: String
+    var content: String
+    var tag: String
+}
