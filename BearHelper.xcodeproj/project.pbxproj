@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		63695E7A2C2F451200B12BEB /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E792C2F451200B12BEB /* Template.swift */; };
+		63695E7C2C2F548D00B12BEB /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */; };
+		63695E7E2C2F559800B12BEB /* CalendarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */; };
+		63695E802C2F55B200B12BEB /* AboutPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7F2C2F55B200B12BEB /* AboutPopoverView.swift */; };
+		63695E842C2F5B7500B12BEB /* TemplatesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E832C2F5B7500B12BEB /* TemplatesTableView.swift */; };
+		63695E862C2F5CC700B12BEB /* TemplatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E852C2F5CC700B12BEB /* TemplatesTableViewController.swift */; };
+		63695E882C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E872C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift */; };
+		63695E8A2C2F6BF500B12BEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E892C2F6BF500B12BEB /* AppDelegate.swift */; };
 		63BDD7A52C2AC0A2007A9A46 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BDD7A42C2AC0A2007A9A46 /* AboutView.swift */; };
 		63C5778A2C298C8A00FC4FDC /* BearHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C577892C298C8A00FC4FDC /* BearHelperApp.swift */; };
 		63C5778C2C298C8A00FC4FDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C5778B2C298C8A00FC4FDC /* ContentView.swift */; };
@@ -24,6 +31,13 @@
 
 /* Begin PBXFileReference section */
 		63695E792C2F451200B12BEB /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
+		63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
+		63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopoverView.swift; sourceTree = "<group>"; };
+		63695E7F2C2F55B200B12BEB /* AboutPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPopoverView.swift; sourceTree = "<group>"; };
+		63695E832C2F5B7500B12BEB /* TemplatesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesTableView.swift; sourceTree = "<group>"; };
+		63695E852C2F5CC700B12BEB /* TemplatesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesTableViewController.swift; sourceTree = "<group>"; };
+		63695E872C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesTableViewRepresentable.swift; sourceTree = "<group>"; };
+		63695E892C2F6BF500B12BEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BDD7A42C2AC0A2007A9A46 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		63C577862C298C8A00FC4FDC /* BearHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BearHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C577892C298C8A00FC4FDC /* BearHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearHelperApp.swift; sourceTree = "<group>"; };
@@ -95,6 +109,13 @@
 				63C577BD2C29B57600FC4FDC /* SettingsView.swift */,
 				63BDD7A42C2AC0A2007A9A46 /* AboutView.swift */,
 				63695E792C2F451200B12BEB /* Template.swift */,
+				63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */,
+				63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */,
+				63695E7F2C2F55B200B12BEB /* AboutPopoverView.swift */,
+				63695E832C2F5B7500B12BEB /* TemplatesTableView.swift */,
+				63695E852C2F5CC700B12BEB /* TemplatesTableViewController.swift */,
+				63695E872C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift */,
+				63695E892C2F6BF500B12BEB /* AppDelegate.swift */,
 			);
 			path = BearHelper;
 			sourceTree = "<group>";
@@ -236,12 +257,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63695E802C2F55B200B12BEB /* AboutPopoverView.swift in Sources */,
 				63C577BC2C29B55300FC4FDC /* PopoverView.swift in Sources */,
 				63C577BE2C29B57600FC4FDC /* SettingsView.swift in Sources */,
 				63C5778C2C298C8A00FC4FDC /* ContentView.swift in Sources */,
 				63695E7A2C2F451200B12BEB /* Template.swift in Sources */,
+				63695E862C2F5CC700B12BEB /* TemplatesTableViewController.swift in Sources */,
+				63695E7E2C2F559800B12BEB /* CalendarPopoverView.swift in Sources */,
+				63695E7C2C2F548D00B12BEB /* TemplateEditorView.swift in Sources */,
+				63695E8A2C2F6BF500B12BEB /* AppDelegate.swift in Sources */,
 				63C5778A2C298C8A00FC4FDC /* BearHelperApp.swift in Sources */,
 				63BDD7A52C2AC0A2007A9A46 /* AboutView.swift in Sources */,
+				63695E882C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift in Sources */,
+				63695E842C2F5B7500B12BEB /* TemplatesTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
