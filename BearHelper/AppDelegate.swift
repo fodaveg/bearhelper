@@ -223,28 +223,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("Regex pattern error: \(error.localizedDescription)")
             return template
         }
-        
+
         let matches = regex.matches(in: template, options: [], range: NSRange(template.startIndex..., in: template))
-        
+
         var processedTemplate = template
         for match in matches.reversed() {
             let matchRange = match.range(at: 0)
             let daysRange = match.range(at: 1)
-            
+
             let daysString = (template as NSString).substring(with: daysRange)
             let days = Int(daysString) ?? 0
-            
+
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let today = formatter.date(from: dateString) ?? Date()
             let targetDate = Calendar.current.date(byAdding: .day, value: days, to: today)!
             let targetDateString = formatter.string(from: targetDate)
-            
+
             processedTemplate = (processedTemplate as NSString).replacingCharacters(in: matchRange, with: targetDateString)
         }
-        
+
         return processedTemplate
     }
+
 
     func application(_ application: NSApplication, open urls: [URL]) {
         for url in urls {
@@ -408,10 +409,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func openTemplate(_ template: Template) {
-        let urlString = "bear://x-callback-url/open-note?title=\(template.name)&exclude_trashed=yes"
-        if let openNoteURL = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
-            print("Opening note with URL: \(openNoteURL)")
-            NSWorkspace.shared.open(openNoteURL)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: Date())
+
+        let processedTemplate = processTemplate(template.content, for: dateString)
+        let encodedTemplate = processedTemplate.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+        var urlString = "bear://x-callback-url/create?title=&text=\(encodedTemplate)"
+        if !template.tag.isEmpty {
+            let encodedTag = template.tag.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            urlString += "&tags=\(encodedTag)"
+        }
+
+        if let url = URL(string: urlString) {
+            print("Creating note with URL: \(url)")
+            NSWorkspace.shared.open(url)
         }
     }
     
