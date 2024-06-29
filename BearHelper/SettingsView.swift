@@ -1,24 +1,15 @@
-//
-//  SettingsView.swift
-//  BearHelper
-//
-//  Created by David Velasco on 24/6/24.
-//
-
 import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("homeNoteID") private var homeNoteID: String = ""
     @AppStorage("defaultAction") private var defaultAction: String = "home"
-    @AppStorage("dailyNoteTemplate") private var dailyNoteTemplate: String = ""
-    @AppStorage("dailyNoteTag") private var dailyNoteTag: String = ""
+    @AppStorage("templates") private var templatesData: Data = Data()
     @AppStorage("launchAtLogin") private var launchAtLogin: Bool = false
-    
-    @State private var tempHomeNoteID: String = ""
-    @State private var tempDefaultAction: String = "home"
-    @State private var tempDailyNoteTemplate: String = ""
-    @State private var tempDailyNoteTag: String = ""
-    @State private var tempLaunchAtLogin: Bool = false
+
+    @State private var templates: [Template] = []
+    @State private var showModal = false
+    @State private var editingTemplate: Template?
+    @State private var selectedTemplates = Set<UUID>()
 
     var setLaunchAtLogin: (Bool) -> Void
 
@@ -30,15 +21,15 @@ struct SettingsView: View {
 
             Text("Home Note ID:")
                 .padding(.horizontal)
-            
-            TextField("Paste the note ID here", text: $tempHomeNoteID)
+
+            TextField("Paste the note ID here", text: $homeNoteID)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
-            
+
             Text("Left Click Action:")
                 .padding(.horizontal)
-            
-            Picker("Action", selection: $tempDefaultAction) {
+
+            Picker("Action", selection: $defaultAction) {
                 Text("Disabled").tag("disabled")
                 Text("Open Home Note").tag("home")
                 Text("Open Daily Note").tag("daily")
@@ -48,78 +39,128 @@ struct SettingsView: View {
 
             Divider()
                 .padding(.vertical)
-            
-            Text("Daily Note Template:")
+
+            Text("Templates")
+                .font(.title2)
                 .padding(.horizontal)
-            
-            TextEditor(text: $tempDailyNoteTemplate)
-                .border(Color.gray, width: 1)
-                .padding(.horizontal)
-                .frame(height: 150)
-            
-            Text("Daily Note Tag:")
-                .padding(.horizontal)
-            
-            TextField("Add tag", text: $tempDailyNoteTag)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.horizontal)
-            
-            Toggle("Launch at Login", isOn: $tempLaunchAtLogin)
-                .padding(.horizontal)
-                .onChange(of: tempLaunchAtLogin) { value in
-                    setLaunchAtLogin(value)
+
+            VStack {
+                List(selection: $selectedTemplates) {
+                    ForEach(templates) { template in
+                        HStack {
+                            Text(template.name)
+                            Spacer()
+                        }
+                        .contentShape(Rectangle()) // Permite hacer clic en toda la fila
+                        .onTapGesture {
+                            selectedTemplates = [template.id]
+                        }
+                    }
+                    .onDelete(perform: deleteTemplate)
                 }
+                .cornerRadius(10) // Agrega el borde redondeado aquí
+            }
+            .padding(.horizontal)
 
             HStack {
-                Button(action: {
-                    // Cancel and discard changes
-                    print("Cancel button clicked")
-                    closeWindow()
-                }) {
-                    Text("Cancel")
-                }
-                .padding()
-                
                 Spacer()
-                
                 Button(action: {
-                    // Save changes
-                    print("Save button clicked")
-                    homeNoteID = tempHomeNoteID
-                    defaultAction = tempDefaultAction
-                    dailyNoteTemplate = tempDailyNoteTemplate
-                    dailyNoteTag = tempDailyNoteTag
-                    launchAtLogin = tempLaunchAtLogin
-                    closeWindow()
+                    let newTemplate = Template(name: "New Template", content: "", tag: "")
+                    templates.append(newTemplate)
+                    editingTemplate = newTemplate
+                    showModal = true
                 }) {
-                    Text("Save")
+                    Image(systemName: "plus")
                 }
                 .padding()
+                Button(action: {
+                    if let editingTemplate = templates.first(where: { selectedTemplates.contains($0.id) }) {
+                        self.editingTemplate = editingTemplate
+                        showModal = true
+                    }
+                }) {
+                    Image(systemName: "pencil")
+                }
+                .padding()
+                .disabled(selectedTemplates.isEmpty) // Deshabilitar si no hay plantillas seleccionadas
+                Button(action: {
+                    deleteSelectedTemplates()
+                }) {
+                    Image(systemName: "minus")
+                }
+                .padding()
+                .disabled(selectedTemplates.isEmpty) // Deshabilitar si no hay plantillas seleccionadas
             }
-            
+
             Spacer()
+
+            HStack {
+                Spacer()
+                Toggle("Launch at Login", isOn: $launchAtLogin)
+                    .padding()
+                    .onChange(of: launchAtLogin) { value in
+                        setLaunchAtLogin(value)
+                    }
+            }
         }
-        .padding()
-        .frame(width: 500, height: 500)
         .onAppear {
-            // Load current values
-            print("SettingsView appeared")
-            tempHomeNoteID = homeNoteID
-            tempDefaultAction = defaultAction
-            tempDailyNoteTemplate = dailyNoteTemplate
-            tempDailyNoteTag = dailyNoteTag
-            tempLaunchAtLogin = launchAtLogin
+            loadTemplates()
+        }
+        .sheet(item: $editingTemplate) { template in
+            TemplateEditorView(
+                template: Binding(
+                    get: { template },
+                    set: { updatedTemplate in
+                        if let index = templates.firstIndex(where: { $0.id == updatedTemplate.id }) {
+                            templates[index] = updatedTemplate
+                        } else {
+                            templates.append(updatedTemplate)
+                        }
+                        saveTemplates()
+                        showModal = false
+                    }
+                ),
+                onSave: { updatedTemplate in
+                    if let index = templates.firstIndex(where: { $0.id == updatedTemplate.id }) {
+                        templates[index] = updatedTemplate
+                    } else {
+                        templates.append(updatedTemplate)
+                    }
+                    saveTemplates()
+                    showModal = false
+                }
+            )
+        }
+        .frame(minWidth: 400, minHeight: 600) // Ajusta el tamaño de la ventana
+    }
+
+    private func loadTemplates() {
+        if let loadedTemplates = try? JSONDecoder().decode([Template].self, from: templatesData) {
+            templates = loadedTemplates
+        }
+        if templates.isEmpty {
+            let defaultTemplate = Template(name: "Daily", content: "Default daily template", tag: "daily")
+            templates.append(defaultTemplate)
+            saveTemplates()
         }
     }
 
-    private func closeWindow() {
-        print("Closing settings window")
-        NSApp.keyWindow?.close()
+    private func saveTemplates() {
+        if let encodedTemplates = try? JSONEncoder().encode(templates) {
+            templatesData = encodedTemplates
+        }
     }
-}
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(setLaunchAtLogin: { _ in })
+    private func deleteTemplate(at offsets: IndexSet) {
+        templates.remove(atOffsets: offsets)
+        saveTemplates()
+    }
+
+    private func deleteSelectedTemplates() {
+        templates.removeAll { template in
+            selectedTemplates.contains(template.id)
+        }
+        selectedTemplates.removeAll()
+        saveTemplates()
     }
 }
