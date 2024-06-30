@@ -1,24 +1,73 @@
 import SwiftUI
+import EventKit
 
 struct SettingsView: View {
     @AppStorage("homeNoteID") private var homeNoteID: String = ""
     @AppStorage("defaultAction") private var defaultAction: String = "home"
     @AppStorage("templates") private var templatesData: Data = Data()
     @AppStorage("launchAtLogin") private var launchAtLogin: Bool = false
+    @AppStorage("calendarSectionHeader") private var calendarSectionHeader: String = "## Calendar Events"
 
     @State private var templates: [Template] = []
     @State private var showModal = false
     @State private var editingTemplate: Template?
     @State private var selectedTemplates = Set<UUID>()
+    @State private var selectedTab = 0
 
-    var setLaunchAtLogin: (Bool) -> Void
+    @EnvironmentObject var appDelegate: AppDelegate
+    @EnvironmentObject var calendarManager: CalendarManager
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Settings")
-                .font(.largeTitle)
-                .padding()
+        VStack {
+            Picker("Settings", selection: $selectedTab) {
+                Text("General").tag(0)
+                Text("Templates").tag(1)
+                Text("Calendars").tag(2)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
 
+            if selectedTab == 0 {
+                generalSettings
+            } else if selectedTab == 1 {
+                templatesSettings
+            } else if selectedTab == 2 {
+                calendarSettings
+            }
+        }
+        .onAppear {
+            loadTemplates()
+        }
+        .sheet(item: $editingTemplate) { template in
+            TemplateEditorView(
+                template: Binding(
+                    get: { template },
+                    set: { updatedTemplate in
+                        if let index = templates.firstIndex(where: { $0.id == updatedTemplate.id }) {
+                            templates[index] = updatedTemplate
+                        } else {
+                            templates.append(updatedTemplate)
+                        }
+                        saveTemplates()
+                        showModal = false
+                    }
+                ),
+                onSave: { updatedTemplate in
+                    if let index = templates.firstIndex(where: { $0.id == updatedTemplate.id }) {
+                        templates[index] = updatedTemplate
+                    } else {
+                        templates.append(updatedTemplate)
+                    }
+                    saveTemplates()
+                    showModal = false
+                }
+            )
+        }
+        .frame(minWidth: 400, minHeight: 600) // Ajusta el tamaño de la ventana
+    }
+
+    private var generalSettings: some View {
+        VStack(alignment: .leading) {
             Text("Home Note ID:")
                 .padding(.horizontal)
 
@@ -37,9 +86,28 @@ struct SettingsView: View {
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
 
-            Divider()
-                .padding(.vertical)
+            Text("Calendar Section Header:")
+                .padding(.horizontal)
 
+            TextField("Enter the header for calendar events", text: $calendarSectionHeader)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+
+            Spacer()
+
+            HStack {
+                Spacer()
+                Toggle("Launch at Login", isOn: $launchAtLogin)
+                    .padding()
+                    .onChange(of: launchAtLogin) { newValue in
+                        appDelegate.settingsManager.setLaunchAtLogin(enabled: newValue)
+                    }
+            }
+        }
+    }
+
+    private var templatesSettings: some View {
+        VStack(alignment: .leading) {
             Text("Templates")
                 .font(.title2)
                 .padding(.horizontal)
@@ -91,53 +159,51 @@ struct SettingsView: View {
                 .padding()
                 .disabled(selectedTemplates.isEmpty) // Deshabilitar si no hay plantillas seleccionadas
             }
+        }
+    }
 
-            Spacer()
+    private var calendarSettings: some View {
+        VStack(alignment: .leading) {
+            Text("Calendars")
+                .font(.title2)
+                .padding(.horizontal)
+
+            VStack {
+                List {
+                    ForEach(calendarManager.getCalendars(), id: \.self) { (calendar: EKCalendar) in
+                        HStack {
+                            Text(calendar.title)
+                            Spacer()
+                            if calendarManager.selectedCalendarIDs.contains(calendar.calendarIdentifier) {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            if let index = calendarManager.selectedCalendarIDs.firstIndex(of: calendar.calendarIdentifier) {
+                                calendarManager.selectedCalendarIDs.remove(at: index)
+                            } else {
+                                calendarManager.selectedCalendarIDs.append(calendar.calendarIdentifier)
+                            }
+                        }
+                    }
+                }
+                .cornerRadius(10)
+            }
+            .padding(.horizontal)
 
             HStack {
                 Spacer()
-                Toggle("Launch at Login", isOn: $launchAtLogin)
-                    .padding()
-                    .onChange(of: launchAtLogin) { value in
-                        setLaunchAtLogin(value)
-                    }
+                Button("Sync Now") {
+                    appDelegate.calendarSyncManager.syncNow()
+                }
+                .padding()
             }
         }
-        .onAppear {
-            loadTemplates()
-        }
-        .sheet(item: $editingTemplate) { template in
-            TemplateEditorView(
-                template: Binding(
-                    get: { template },
-                    set: { updatedTemplate in
-                        if let index = templates.firstIndex(where: { $0.id == updatedTemplate.id }) {
-                            templates[index] = updatedTemplate
-                        } else {
-                            templates.append(updatedTemplate)
-                        }
-                        saveTemplates()
-                        showModal = false
-                    }
-                ),
-                onSave: { updatedTemplate in
-                    if let index = templates.firstIndex(where: { $0.id == updatedTemplate.id }) {
-                        templates[index] = updatedTemplate
-                    } else {
-                        templates.append(updatedTemplate)
-                    }
-                    saveTemplates()
-                    showModal = false
-                }
-            )
-        }
-        .frame(minWidth: 400, minHeight: 600) // Ajusta el tamaño de la ventana
     }
 
     private func loadTemplates() {
-        if let loadedTemplates = try? JSONDecoder().decode([Template].self, from: templatesData) {
-            templates = loadedTemplates
-        }
+        templates = appDelegate.settingsManager.loadTemplates()
         if templates.isEmpty {
             let defaultTemplate = Template(name: "Daily", content: "Default daily template", tag: "daily")
             templates.append(defaultTemplate)
@@ -146,9 +212,7 @@ struct SettingsView: View {
     }
 
     private func saveTemplates() {
-        if let encodedTemplates = try? JSONEncoder().encode(templates) {
-            templatesData = encodedTemplates
-        }
+        appDelegate.settingsManager.saveTemplates(templates)
     }
 
     private func deleteTemplate(at offsets: IndexSet) {

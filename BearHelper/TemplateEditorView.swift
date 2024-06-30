@@ -47,7 +47,7 @@ struct TemplateEditorView: View {
                         
                         TextEditorWithTabSupport(text: $newContent, focusedField: $focusedField)
                             .focused($focusedField, equals: .content)
-                            .frame(minHeight: 200)  // Adjust as needed
+                            .frame(minHeight: 200)
                     }
                 }
                 Section(header: Text("Tag")) {
@@ -92,7 +92,6 @@ struct TemplateEditorView: View {
     }
 }
 
-// TextEditor with Tab support
 struct TextEditorWithTabSupport: NSViewRepresentable {
     @Binding var text: String
     @FocusState.Binding var focusedField: TemplateEditorView.Field?
@@ -164,7 +163,6 @@ class NSTextViewWrapper: NSScrollView {
     }
 }
 
-// Utility to access the window properties
 struct WindowAccessor: View {
     var callback: (NSWindow?) -> Void
 
