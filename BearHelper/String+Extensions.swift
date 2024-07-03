@@ -5,6 +5,6 @@ extension String {
         let unreserved = "-._~"
         var allowed = CharacterSet.alphanumerics
         allowed.insert(charactersIn: unreserved)
-        return self.addingPercentEncoding(withAllowedCharacters: allowed)
+        return self.addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
     }
 }

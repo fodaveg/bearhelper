@@ -41,6 +41,10 @@ struct TemplateEditorView: View {
                                 insertSnippet("%date()%")
                             }
                             Spacer()
+                            Button("Calendar Events") {
+                                insertSnippet("%calendar_events%")
+                            }
+                            Spacer()
                         }
                         .padding(.horizontal)
                         .background(Color.gray.opacity(0.2))

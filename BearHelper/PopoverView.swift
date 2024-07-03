@@ -41,8 +41,7 @@ struct PopoverView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let dateString = formatter.string(from: today)
-        let title = "Daily Note \(dateString)"
-        var urlString = "bear://x-callback-url/create?title=\(title)&text=\(dailyNoteTemplate)"
+        var urlString = "bear://x-callback-url/create?title=&text=\(dailyNoteTemplate)"
         if !dailyNoteTag.isEmpty {
             urlString += "&tags=\(dailyNoteTag)"
         }

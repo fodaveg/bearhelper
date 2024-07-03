@@ -27,7 +27,7 @@ class CalendarSyncManager: ObservableObject {
             noteManager.getDailyNoteID(for: previousDateString) { [weak self] dailyNoteID in
                 guard let self = self else { return }
                 if !dailyNoteID.isEmpty {
-                    self.noteManager.updateDailyNoteWithCalendarEvents(for: previousDateString)
+                   // self.noteManager.updateDailyNoteWithCalendarEvents(for: previousDateString)
                 }
             }
         }
@@ -39,7 +39,7 @@ class CalendarSyncManager: ObservableObject {
             noteManager.getDailyNoteID(for: nextDateString) { [weak self] dailyNoteID in
                 guard let self = self else { return }
                 if !dailyNoteID.isEmpty {
-                    self.noteManager.updateDailyNoteWithCalendarEvents(for: nextDateString)
+                 //   self.noteManager.updateDailyNoteWithCalendarEvents(for: nextDateString)
                 }
             }
         }
@@ -47,7 +47,7 @@ class CalendarSyncManager: ObservableObject {
 
     func updateTodayNoteWithCurrentDateEvents() {
         let dateString = getCurrentDateString()
-        noteManager.updateDailyNoteWithCalendarEvents(for: dateString)
+     //   noteManager.updateDailyNoteWithCalendarEvents(for: dateString)
     }
     
     

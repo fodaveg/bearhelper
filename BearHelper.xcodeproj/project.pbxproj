@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		633409D62C34581300547B37 /* BearAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633409D52C34581300547B37 /* BearAPIManager.swift */; };
+		633409D82C345C9B00547B37 /* DailyNoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633409D72C345C9B00547B37 /* DailyNoteManager.swift */; };
 		63695E7A2C2F451200B12BEB /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E792C2F451200B12BEB /* Template.swift */; };
 		63695E7C2C2F548D00B12BEB /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */; };
 		63695E7E2C2F559800B12BEB /* CalendarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		633409D52C34581300547B37 /* BearAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearAPIManager.swift; sourceTree = "<group>"; };
+		633409D72C345C9B00547B37 /* DailyNoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteManager.swift; sourceTree = "<group>"; };
 		63695E792C2F451200B12BEB /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
 		63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopoverView.swift; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 				6375B4872C3058CA00A855DF /* CalendarSyncManager.swift */,
 				6375B48B2C30604100A855DF /* String+Extensions.swift */,
 				6375B48D2C30912300A855DF /* ContentView.swift */,
+				633409D52C34581300547B37 /* BearAPIManager.swift */,
+				633409D72C345C9B00547B37 /* DailyNoteManager.swift */,
 			);
 			path = BearHelper;
 			sourceTree = "<group>";
@@ -272,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633409D62C34581300547B37 /* BearAPIManager.swift in Sources */,
 				6375B4842C3057D700A855DF /* NoteManager.swift in Sources */,
 				63695E802C2F55B200B12BEB /* AboutPopoverView.swift in Sources */,
 				63C577BC2C29B55300FC4FDC /* PopoverView.swift in Sources */,
@@ -280,6 +287,7 @@
 				6375B4822C30269900A855DF /* CalendarManager.swift in Sources */,
 				6375B4882C3058CA00A855DF /* CalendarSyncManager.swift in Sources */,
 				63695E7A2C2F451200B12BEB /* Template.swift in Sources */,
+				633409D82C345C9B00547B37 /* DailyNoteManager.swift in Sources */,
 				63695E862C2F5CC700B12BEB /* TemplatesTableViewController.swift in Sources */,
 				63695E7E2C2F559800B12BEB /* CalendarPopoverView.swift in Sources */,
 				63695E7C2C2F548D00B12BEB /* TemplateEditorView.swift in Sources */,
@@ -433,6 +441,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelper/Preview Content\"";
+				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BearHelper/Info.plist;
@@ -461,6 +470,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelper/Preview Content\"";
+				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BearHelper/Info.plist;

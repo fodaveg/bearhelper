@@ -30,7 +30,12 @@ class CalendarManager: ObservableObject {
     }
 
     func fetchEvents(startDate: Date, endDate: Date) -> [EKEvent]? {
-        let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: selectedCalendars())
+        let selectedCalendars = self.selectedCalendars()
+        guard !selectedCalendars.isEmpty else {
+            print("No calendars selected.")
+            return []
+        }
+        let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: selectedCalendars)
         return eventStore.events(matching: predicate)
     }
 
@@ -38,7 +43,7 @@ class CalendarManager: ObservableObject {
         return eventStore.calendars(for: .event)
     }
 
-    private func selectedCalendars() -> [EKCalendar] {
+    func selectedCalendars() -> [EKCalendar] {
         let calendars = eventStore.calendars(for: .event)
         return calendars.filter { selectedCalendarIDs.contains($0.calendarIdentifier) }
     }

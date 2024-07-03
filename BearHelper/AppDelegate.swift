@@ -24,6 +24,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         configureLaunchAtLogin()
         requestCalendarAccess()
     }
+    
+    
+    func handleCallback(url: URL) {
+        if let host = url.host {
+            switch host {
+            case "update-home-note-if-needed-success":
+                updateHomeNoteIfNeededSuccess(url: url)
+            case "update-home-note-if-needed-error":
+                updateHomeNoteIfNeededError(url: url)
+            case "update-daily-note-if-needed-success":
+                updateDailyNoteIfNeededSuccess(url: url)
+            case "update-daily-note-if-needed-error":
+                updateDailyNoteIfNeededError(url: url)
+            case "open-daily-note-success":
+                openDailyNoteSuccess(url: url)
+            case "open-daily-note-error":
+                openDailyNoteError(url: url)
+            case "create-daily-note-success":
+                createDailyNoteSuccess(url: url)
+            case "create-daily-note-error":
+                createDailyNoteError(url: url)
+            default:
+                break
+            }
+        }
+    }
+    
 
     private func setupStatusItem() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -181,58 +208,169 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
     @objc func openHomeNote() {
         print("Opening home note")
+
         let homeNoteID = settingsManager.homeNoteID
+        self.updateHomeNoteIfNeeded()
         if let url = URL(string: "bear://x-callback-url/open-note?id=\(homeNoteID)") {
             NSWorkspace.shared.open(url)
         }
     }
     
+    func updateHomeNoteIfNeeded() {
+        
+        let homeNoteId = SettingsManager.shared.homeNoteID
+        let currentDateFormatted = self.getCurrentDateFormatted()
+        let fetchURLString = "bear://x-callback-url/open-note?id=\(homeNoteId)&show_window=no&open_note=no&x-success=fodabear://update-home-note-if-needed-success&x-error=fodabear://update-home-note-if-needed-error"
+        if let fetchURL = URL(string: fetchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+            print("Fetching home note with URL: \(fetchURL)")
+            NSWorkspace.shared.open(fetchURL)
+        }
+    }
     
-    @objc func openDailyNote() {
-        print("Opening daily note")
+    func updateDailyNoteIfNeeded() {
         
-        let today = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let dateString = formatter.string(from: today)
+    
+        let currentDateFormatted = self.getCurrentDateFormatted()
+        let fetchURLString = "bear://x-callback-url/open-note?title=\(currentDateFormatted)&show_window=no&open_note=no&x-success=fodabear://update-daily-note-if-needed-success&x-error=fodabear://update-daily-note-if-needed-error"
+        if let fetchURL = URL(string: fetchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+            print("Fetching daily note with URL: \(fetchURL)")
+            NSWorkspace.shared.open(fetchURL)
+        }
+    }
+    
+    private func updateDailyNoteIfNeededError(url: URL) {}
+    private func updateDailyNoteIfNeededSuccess(url: URL) {
         
-        self.currentTodayDateString = dateString
+        let currentDateFormatted = self.getCurrentDateFormatted()
         
-        let homeNoteID = settingsManager.homeNoteID
-        if !homeNoteID.isEmpty {
-            noteManager.updateHomeNoteIfNeeded(homeNoteID: homeNoteID, todayDateString: dateString)
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return
         }
         
+        print("query de daiy ok: \(queryItems.first(where: { $0.name == "note" })?.value)")
+        print("query de daiy ok id: \(queryItems.first(where: { $0.name == "identifier" })?.value)")
         
-        
-        let titleParameter = dateString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let successParameter = "fodabear://open-note-daily-success".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let errorParameter = "fodabear://open-note-daily-error".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        
-        let openNoteURLString = "bear://x-callback-url/open-note?title=\(titleParameter)&exclude_trashed=yes&x-success=\(successParameter)&x-error=\(errorParameter)"
-        
-        if let openNoteURL = URL(string: openNoteURLString) {
-            print("Opening note with URL: \(openNoteURL)")
-            NSWorkspace.shared.open(openNoteURL)
-            noteManager.updateDailyNoteWithCalendarEvents(for: dateString)
-        } else {
-            print("Failed to create URL from string: \(openNoteURLString)")
+        guard let note = queryItems.first(where: { $0.name == "note" })?.value else {
+            let note = ""
+            return
         }
         
-//        if let openNoteURL = URL(string: openNoteURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
-//            print("Opening note with URL: \(openNoteURL)")
-//            NSWorkspace.shared.open(openNoteURL)
-//            noteManager.getDailyNoteID(for: dateString) { [weak self] dailyNoteID in
-//                guard let self = self else { return }
-//                self.currentDailyNoteID = dailyNoteID
-//                if !dailyNoteID.isEmpty {
-//                    self.noteManager.updateDailyNoteWithCalendarEvents(for: dateString)
-//                }
-//            }
-//        }
+        guard let id = queryItems.first(where: { $0.name == "identifier" })?.value else {
+            let id = ""
+            return
+        }
+        
+        NoteManager.shared.updateDailyNoteWithCalendarEvents(for: currentDateFormatted,noteContent: note, noteId: id)
     }
     
     
+    private func updateHomeNoteIfNeededSuccess(url: URL) {
+        let homeNoteId = SettingsManager.shared.homeNoteID
+        let currentDateFormatted = self.getCurrentDateFormatted()
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return
+        }
+        
+        guard let note = queryItems.first(where: { $0.name == "note" })?.value else {
+            let note = ""
+            return
+        }
+        
+        NoteManager.shared.updateHomeNoteWithCalendarEvents(for: currentDateFormatted,noteContent: note, homeNoteId: homeNoteId)
+    }
+    
+    private func updateHomeNoteIfNeededError(url: URL) {
+
+            print("updateHomeNoteIfNeededError: \(url)")
+
+    }
+    
+    
+    func getCurrentDateFormatted(date: Date = Date()) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
+
+    
+    
+ 
+    
+    @objc func openDailyNote() {
+        print("Opening daily note")
+        let dateToday = getCurrentDateFormatted()
+        
+        let successParameter = "fodabear://open-daily-note-success"
+        let errorParameter = "fodabear://open-daily-note-error"
+        
+        self.updateDailyNoteIfNeeded()
+        if let dailyUrl = URL(string: "bear://x-callback-url/open-note?title=\(dateToday)&open_note=no&show_window=no&exclude_trashed=yes&x-success=\(successParameter)&x-error=\(errorParameter)") {
+            NSWorkspace.shared.open(dailyUrl)
+        }
+        
+    }
+    
+    @objc func openDailyNoteSuccess(url: URL) {
+        
+        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+            
+            
+            let dailyId = queryItems.first(where: { $0.name == "id" })?.value
+            if let dailyUrl = URL(string: "bear://x-callback-url/open-note?id=\(String(describing: dailyId))") {
+                NSWorkspace.shared.open(dailyUrl)
+            }
+        }
+    }
+    
+    @objc func openDailyNoteError(url: URL) {
+        
+        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+            
+            
+            let dailyId = queryItems.first(where: { $0.name == "id" })?.value
+            if let dailyUrl = URL(string: "bear://x-callback-url/open-note?id=\(String(describing: dailyId))") {
+                NSWorkspace.shared.open(dailyUrl)
+            }
+        }
+    }
+    
+    func createDailyNoteWithDate(_ date: String?) {
+        
+        let date = date ?? getCurrentDateFormatted()
+        
+
+        guard let template = SettingsManager.shared.loadTemplates().first(where: { $0.name == "Daily" }) else { return }
+
+        
+        let processedContent = NoteManager.shared.processTemplateVariables(template.content,for: date)
+        
+        let tags = [template.tag]
+        
+       
+        let successCallback = "fodabear://create-daily-note-success"
+        let errorCallback = "fodabear://create-daily-note-error"
+        let createURLString = "bear://x-callback-url/create?text=\(processedContent)&tags=\(tags.joined(separator: ","))&open_note=yes&show_window=yes&x-success=\(successCallback)&x-error=\(errorCallback)"
+        
+              
+        if let dailyUrl = URL(string: createURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+            NSWorkspace.shared.open(dailyUrl)
+        }
+        
+    }
+    
+    
+    @objc func createDailyNoteError(url: URL) {
+        
+        print("create daily error: \(url)")
+    }
+    
+    @objc func createDailyNoteSuccess(url: URL) {
+        
+        
+    }
     
     
 
@@ -241,7 +379,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             popover = NSPopover()
             popover?.contentViewController = NSHostingController(rootView: CalendarPopoverView(onSelectDate: { [weak self] (selectedDate: Date) in
                 self?.popover?.performClose(nil)
-                self?.noteManager.createDailyNoteForDate(selectedDate: selectedDate)
+                let selectedDateString = self?.getCurrentDateFormatted(date: selectedDate)
+                self?.createDailyNoteWithDate(selectedDateString)
             }))
             popover?.behavior = .transient
         }
@@ -251,36 +390,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         }
     }
 
-    func application(_ application: NSApplication, open urls: [URL]) {
+    func application(_ app: NSApplication, open urls: [URL]) {
         for url in urls {
-            print("URL scheme: \(url.scheme ?? "nil")")
-            print("URL host: \(url.host ?? "nil")")
-            print("URL received: \(url.absoluteString)")
-
             if url.scheme == "fodabear" {
-                if url.host == "open-note-success" {
-                    print("URL received: \(url)")
-                    if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
-                        print("Query items: \(queryItems)")
-                        if let noteContent = queryItems.first(where: { $0.name == "note" })?.value,
-                           let todayDateString = self.currentTodayDateString,
-                           let homeNoteID = self.currentHomeNoteID {
-                            print("Note content found: \(noteContent)")
-                            print("Current today date string: \(todayDateString)")
-                            print("Current home note ID: \(homeNoteID)")
-                            handleOpenNoteSuccess(noteContent: noteContent, todayDateString: todayDateString, homeNoteID: homeNoteID)
-                        } else {
-                            print("Error: Missing required query items or context values")
-                        }
-                    }
-                } else if url.host == "open-note-daily-success" {
-                    print("Daily note already exists. URL received: \(url)")
-                } else if url.host == "open-note-daily-error" {
-                    print("Open note error received: \(url)")
-                    noteManager.createDailyNoteWithTemplate(for: currentTodayDateString ?? "")
-                } else if url.host == "open-note-error" {
-                    print("Open note error received: \(url)")
-                }
+                self.handleCallback(url: url)
             }
         }
     }
@@ -339,6 +452,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
     }
+    
+    func openTemplateNote(for templateName: String) -> Template? {
+        guard let template = settingsManager.loadTemplates().first(where: { $0.name == templateName }) else {
+            print("Template not found")
+            return nil
+        }
+        
+        noteManager.openTemplate(template)
+        return template
+    }
 
     @objc func openTemplateNote(_ sender: NSMenuItem) {
         let templateTitle = sender.title
@@ -351,5 +474,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         guard let template = settingsManager.loadTemplates().first(where: { $0.name == templateName }) else { return }
 
         noteManager.openTemplate(template)
+        
     }
+    
+
+    
 }
