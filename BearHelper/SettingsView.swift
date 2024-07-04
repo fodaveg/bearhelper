@@ -7,6 +7,7 @@ struct SettingsView: View {
     @AppStorage("templates") private var templatesData: Data = Data()
     @AppStorage("launchAtLogin") private var launchAtLogin: Bool = false
     @AppStorage("calendarSectionHeader") private var calendarSectionHeader: String = "## Calendar Events"
+    @AppStorage("dailySectionHeader") private var dailySectionHeader: String = "## Daily" // Nueva propiedad
 
     @State private var templates: [Template] = []
     @State private var showModal = false
@@ -90,6 +91,13 @@ struct SettingsView: View {
                 .padding(.horizontal)
 
             TextField("Enter the header for calendar events", text: $calendarSectionHeader)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+
+            Text("Daily Section Header:") // Nuevo campo
+                .padding(.horizontal)
+
+            TextField("Enter the header for daily section", text: $dailySectionHeader) // Nuevo campo
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
 
@@ -195,7 +203,7 @@ struct SettingsView: View {
             HStack {
                 Spacer()
                 Button("Sync Now") {
-                    appDelegate.calendarSyncManager.syncNow()
+                    appDelegate.syncNow()
                 }
                 .padding()
             }

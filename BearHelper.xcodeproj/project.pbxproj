@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		632F99972C35F2B60043D1AE /* BearHelperLauncher.app in Resources */ = {isa = PBXBuildFile; fileRef = 63C577C62C29D6DF00FC4FDC /* BearHelperLauncher.app */; };
+		632F99C52C35F6780043D1AE /* BearHelperLauncher.app in Resources */ = {isa = PBXBuildFile; fileRef = 632F99C42C35F64B0043D1AE /* BearHelperLauncher.app */; };
 		633409D62C34581300547B37 /* BearAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633409D52C34581300547B37 /* BearAPIManager.swift */; };
 		633409D82C345C9B00547B37 /* DailyNoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633409D72C345C9B00547B37 /* DailyNoteManager.swift */; };
 		63695E7A2C2F451200B12BEB /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E792C2F451200B12BEB /* Template.swift */; };
@@ -36,7 +38,89 @@
 		63C577D02C29D6E100FC4FDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CF2C29D6E100FC4FDC /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		632F99982C35F2B60043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F999A2C35F2C90043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F999C2C35F2F90043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F999E2C35F3020043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99A02C35F3A70043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99A22C35F3AC0043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99C32C35F64B0043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 632F99AD2C35F64A0043D1AE;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99CA2C35F6980043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 632F99AD2C35F64A0043D1AE;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99CC2C35F6B20043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99CE2C35F6BD0043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+		632F99F82C35F8130043D1AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
+			remoteInfo = BearHelperLauncher;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BearHelperLauncher.xcodeproj; path = BearHelperLauncher/BearHelperLauncher/BearHelperLauncher.xcodeproj; sourceTree = "<group>"; };
+		632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BearHelperLauncher.xcodeproj; path = BearHelperLauncher/BearHelperLauncher/BearHelperLauncher.xcodeproj; sourceTree = "<group>"; };
 		633409D52C34581300547B37 /* BearAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearAPIManager.swift; sourceTree = "<group>"; };
 		633409D72C345C9B00547B37 /* DailyNoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteManager.swift; sourceTree = "<group>"; };
 		63695E792C2F451200B12BEB /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
@@ -91,11 +175,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		632F99C02C35F64B0043D1AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				632F99C42C35F64B0043D1AE /* BearHelperLauncher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		632F99C72C35F6980043D1AE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				632F99CB2C35F6980043D1AE /* BearHelperLauncher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		63C5777D2C298C8A00FC4FDC = {
 			isa = PBXGroup;
 			children = (
+				632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */,
 				63C577882C298C8A00FC4FDC /* BearHelper */,
-				63C577C72C29D6DF00FC4FDC /* BearHelperLauncher */,
 				63C577872C298C8A00FC4FDC /* Products */,
 				63C577BF2C29D40500FC4FDC /* Frameworks */,
 			);
@@ -152,6 +252,8 @@
 		63C577BF2C29D40500FC4FDC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */,
+				63C577C72C29D6DF00FC4FDC /* BearHelperLauncher */,
 				63C577C02C29D40500FC4FDC /* ServiceManagement.framework */,
 			);
 			name = Frameworks;
@@ -192,6 +294,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				632F99992C35F2B60043D1AE /* PBXTargetDependency */,
+				632F999B2C35F2C90043D1AE /* PBXTargetDependency */,
+				632F999D2C35F2F90043D1AE /* PBXTargetDependency */,
+				632F999F2C35F3020043D1AE /* PBXTargetDependency */,
+				632F99A12C35F3A70043D1AE /* PBXTargetDependency */,
+				632F99A32C35F3AC0043D1AE /* PBXTargetDependency */,
+				632F99CD2C35F6B20043D1AE /* PBXTargetDependency */,
+				632F99CF2C35F6BD0043D1AE /* PBXTargetDependency */,
+				632F99F92C35F8130043D1AE /* PBXTargetDependency */,
 			);
 			name = BearHelper;
 			productName = BearHelper;
@@ -244,6 +355,16 @@
 			mainGroup = 63C5777D2C298C8A00FC4FDC;
 			productRefGroup = 63C577872C298C8A00FC4FDC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 632F99C02C35F64B0043D1AE /* Products */;
+					ProjectRef = 632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */;
+				},
+				{
+					ProductGroup = 632F99C72C35F6980043D1AE /* Products */;
+					ProjectRef = 632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				63C577852C298C8A00FC4FDC /* BearHelper */,
@@ -252,12 +373,31 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		632F99C42C35F64B0043D1AE /* BearHelperLauncher.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BearHelperLauncher.app;
+			remoteRef = 632F99C32C35F64B0043D1AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		632F99CB2C35F6980043D1AE /* BearHelperLauncher.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = BearHelperLauncher.app;
+			remoteRef = 632F99CA2C35F6980043D1AE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		63C577842C298C8A00FC4FDC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				63C577912C298C8B00FC4FDC /* Preview Assets.xcassets in Resources */,
+				632F99C52C35F6780043D1AE /* BearHelperLauncher.app in Resources */,
+				632F99972C35F2B60043D1AE /* BearHelperLauncher.app in Resources */,
 				63C5778E2C298C8B00FC4FDC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +452,54 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		632F99992C35F2B60043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F99982C35F2B60043D1AE /* PBXContainerItemProxy */;
+		};
+		632F999B2C35F2C90043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F999A2C35F2C90043D1AE /* PBXContainerItemProxy */;
+		};
+		632F999D2C35F2F90043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F999C2C35F2F90043D1AE /* PBXContainerItemProxy */;
+		};
+		632F999F2C35F3020043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F999E2C35F3020043D1AE /* PBXContainerItemProxy */;
+		};
+		632F99A12C35F3A70043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F99A02C35F3A70043D1AE /* PBXContainerItemProxy */;
+		};
+		632F99A32C35F3AC0043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F99A22C35F3AC0043D1AE /* PBXContainerItemProxy */;
+		};
+		632F99CD2C35F6B20043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F99CC2C35F6B20043D1AE /* PBXContainerItemProxy */;
+		};
+		632F99CF2C35F6BD0043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F99CE2C35F6BD0043D1AE /* PBXContainerItemProxy */;
+		};
+		632F99F92C35F8130043D1AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 63C577C52C29D6DF00FC4FDC /* BearHelperLauncher */;
+			targetProxy = 632F99F82C35F8130043D1AE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		63C577932C298C8B00FC4FDC /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -348,6 +536,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -366,7 +555,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -411,6 +600,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -423,7 +613,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -442,6 +632,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 5LHT3P9C4T;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BearHelper/Info.plist;
@@ -471,6 +662,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 5LHT3P9C4T;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BearHelper/Info.plist;

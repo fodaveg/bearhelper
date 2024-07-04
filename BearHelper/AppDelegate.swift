@@ -25,6 +25,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         requestCalendarAccess()
     }
     
+    func resetLaunchAtLoginState() {
+        do {
+            if SMAppService.mainApp.status == .enabled {
+                try SMAppService.mainApp.unregister()
+                print("Launch at login has been reset to disabled")
+            }
+        } catch {
+            print("Failed to reset launch at login status: \(error.localizedDescription)")
+        }
+    }
     
     func handleCallback(url: URL) {
         if let host = url.host {
@@ -35,16 +45,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                 updateHomeNoteIfNeededError(url: url)
             case "update-daily-note-if-needed-success":
                 updateDailyNoteIfNeededSuccess(url: url)
+            case "update-daily-note-if-needed-success-for-sync":
+                updateDailyNoteIfNeededSuccessForSync(url: url)
             case "update-daily-note-if-needed-error":
                 updateDailyNoteIfNeededError(url: url)
             case "open-daily-note-success":
                 openDailyNoteSuccess(url: url)
             case "open-daily-note-error":
                 openDailyNoteError(url: url)
-            case "create-daily-note-success":
-                createDailyNoteSuccess(url: url)
-            case "create-daily-note-error":
-                createDailyNoteError(url: url)
             default:
                 break
             }
@@ -62,7 +70,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
 
     private func configureLaunchAtLogin() {
+        resetLaunchAtLoginState()
         let launchAtLogin = settingsManager.launchAtLogin
+        print("Configuring launch at login: \(launchAtLogin)")
         settingsManager.setLaunchAtLogin(enabled: launchAtLogin)
     }
 
@@ -105,19 +115,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         print("Showing menu")
         let menu = NSMenu()
         
-        addMenuItem(to: menu, title: "Open Home Note", action: #selector(openHomeNote), keyEquivalent: "H")
+        addMenuItem(to: menu, title: "Open Home Note", action: #selector(openHomeNote), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(to: menu, title: "Open Daily Note", action: #selector(openDailyNote), keyEquivalent: "D")
-        addMenuItem(to: menu, title: "Create Custom Daily Note", action: #selector(showDatePicker), keyEquivalent: "C")
+        addMenuItem(to: menu, title: "Open Daily Note", action: #selector(openDailyNote), keyEquivalent: "")
+        addMenuItem(to: menu, title: "Create Custom Daily Note", action: #selector(showDatePicker), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
-        
         addCustomTemplateItems(to: menu)
         menu.addItem(NSMenuItem.separator())
-        
-        addMenuItem(to: menu, title: "Settings", action: #selector(openSettings), keyEquivalent: "S")
-        addMenuItem(to: menu, title: "About", action: #selector(openAbout), keyEquivalent: "A")
+        addMenuItem(to: menu, title: "Sync Calendar Events", action: #selector(syncNow), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(to: menu, title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "Q")
+        addMenuItem(to: menu, title: "Settings", action: #selector(openSettings), keyEquivalent: "")
+        addMenuItem(to: menu, title: "About", action: #selector(openAbout), keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
+        addMenuItem(to: menu, title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 
         statusItem.menu = menu
         statusItem.button?.performClick(nil)
@@ -216,6 +226,41 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         }
     }
     
+    
+    @objc func syncNow() {
+        let calendar = Calendar.current
+        let today = Date()
+        
+        for i in -7...7 {
+            if let date = calendar.date(byAdding: .day, value: i, to: today) {
+                let formattedDate = getCurrentDateFormatted(date: date)
+                self.syncCalendarForDate(formattedDate)
+            }
+        }
+        
+        
+        
+        
+    }
+    
+    func syncCalendarForDate(_ date: String?) {
+        
+        
+        let date = date ?? getCurrentDateFormatted()
+        
+        let fetchURLString = "bear://x-callback-url/open-note?title=\(date)&show_window=no&open_note=no&x-success=fodabear://update-daily-note-if-needed-success-for-sync"
+        if let fetchURL = URL(string: fetchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+            print("Fetching daily note with URL: \(fetchURL)")
+            NSWorkspace.shared.open(fetchURL)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     func updateHomeNoteIfNeeded() {
         
         let homeNoteId = SettingsManager.shared.homeNoteID
@@ -227,7 +272,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         }
     }
     
-    func updateDailyNoteIfNeeded() {
+    func updateDailyNoteIfNeeded(_ date: String?) {
         
     
         let currentDateFormatted = self.getCurrentDateFormatted()
@@ -239,17 +284,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
     
     private func updateDailyNoteIfNeededError(url: URL) {}
+    
+    
+    
     private func updateDailyNoteIfNeededSuccess(url: URL) {
         
-        let currentDateFormatted = self.getCurrentDateFormatted()
+      
         
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else {
             return
         }
         
-        print("query de daiy ok: \(queryItems.first(where: { $0.name == "note" })?.value)")
-        print("query de daiy ok id: \(queryItems.first(where: { $0.name == "identifier" })?.value)")
+        guard let title = queryItems.first(where: { $0.name == "title" })?.value else {
+            let title = ""
+            return
+        }
         
         guard let note = queryItems.first(where: { $0.name == "note" })?.value else {
             let note = ""
@@ -261,8 +311,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             return
         }
         
-        NoteManager.shared.updateDailyNoteWithCalendarEvents(for: currentDateFormatted,noteContent: note, noteId: id)
+        NoteManager.shared.updateDailyNoteWithCalendarEvents(for: title,noteContent: note, noteId: id)
     }
+    
+    private func updateDailyNoteIfNeededSuccessForSync(url: URL) {
+        
+      
+        
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return
+        }
+        
+        guard let title = queryItems.first(where: { $0.name == "title" })?.value else {
+            let title = ""
+            return
+        }
+        
+        guard let note = queryItems.first(where: { $0.name == "note" })?.value else {
+            let note = ""
+            return
+        }
+        
+        guard let id = queryItems.first(where: { $0.name == "identifier" })?.value else {
+            let id = ""
+            return
+        }
+        
+        NoteManager.shared.updateDailyNoteWithCalendarEvents(for: title,noteContent: note, noteId: id, open: false)
+    }
+    
     
     
     private func updateHomeNoteIfNeededSuccess(url: URL) {
@@ -288,15 +366,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
     
     
-    func getCurrentDateFormatted(date: Date = Date()) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
+
     
 
     
     
+    
+       @objc func openDailyNoteWithDate(_ date: String?) {
+           print("Opening daily note")
+
+           
+           let date = date ?? getCurrentDateFormatted()
+           
+           let successParameter = "fodabear://open-daily-note-with-date-success"
+           let errorParameter = "fodabear://open-daily-note-with-date-error?date=\(date)"
+           
+           self.updateDailyNoteIfNeeded(date)
+           if let dailyUrl = URL(string: "bear://x-callback-url/open-note?title=\(date)&open_note=no&show_window=no&exclude_trashed=yes&x-success=\(successParameter)&x-error=\(errorParameter)") {
+               NSWorkspace.shared.open(dailyUrl)
+           }
+           
+       }
  
     
     @objc func openDailyNote() {
@@ -306,7 +396,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         let successParameter = "fodabear://open-daily-note-success"
         let errorParameter = "fodabear://open-daily-note-error"
         
-        self.updateDailyNoteIfNeeded()
+        self.updateDailyNoteIfNeeded(dateToday)
         if let dailyUrl = URL(string: "bear://x-callback-url/open-note?title=\(dateToday)&open_note=no&show_window=no&exclude_trashed=yes&x-success=\(successParameter)&x-error=\(errorParameter)") {
             NSWorkspace.shared.open(dailyUrl)
         }
@@ -327,6 +417,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     
     @objc func openDailyNoteError(url: URL) {
         
+        self.createDailyNoteWithDate(self.getCurrentDateFormatted())
+        
+    }
+    
+    
+    
+    @objc func openDailyNoteWithDateSuccess(url: URL) {
+        
         if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
             
             
@@ -337,41 +435,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         }
     }
     
-    func createDailyNoteWithDate(_ date: String?) {
+    @objc func openDailyNoteWithDateError(url: URL) {
         
-        let date = date ?? getCurrentDateFormatted()
-        
+        if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+            
+            
+            let dailyDate = queryItems.first(where: { $0.name == "date" })?.value
+            self.createDailyNoteWithDate(dailyDate)
 
-        guard let template = SettingsManager.shared.loadTemplates().first(where: { $0.name == "Daily" }) else { return }
-
-        
-        let processedContent = NoteManager.shared.processTemplateVariables(template.content,for: date)
-        
-        let tags = [template.tag]
-        
-       
-        let successCallback = "fodabear://create-daily-note-success"
-        let errorCallback = "fodabear://create-daily-note-error"
-        let createURLString = "bear://x-callback-url/create?text=\(processedContent)&tags=\(tags.joined(separator: ","))&open_note=yes&show_window=yes&x-success=\(successCallback)&x-error=\(errorCallback)"
-        
-              
-        if let dailyUrl = URL(string: createURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
-            NSWorkspace.shared.open(dailyUrl)
         }
         
-    }
-    
-    
-    @objc func createDailyNoteError(url: URL) {
-        
-        print("create daily error: \(url)")
-    }
-    
-    @objc func createDailyNoteSuccess(url: URL) {
-        
         
     }
     
+
     
 
     @objc func showDatePicker() {
@@ -477,6 +554,44 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         
     }
     
+    
+    
+    
+    
+    func createDailyNoteWithDate(_ date: String?) {
+        
+        let date = date ?? getCurrentDateFormatted()
+        
+        guard let template = SettingsManager.shared.loadTemplates().first(where: { $0.name == "Daily" }) else { return }
+        
+        let processedContent = NoteManager.shared.processTemplateVariables(template.content,for: date)
+        
+        let tags = [template.tag]
+        
+        // Codificación de URL para crear la nota
+        let createURLString = "bear://x-callback-url/create?text=\(processedContent.addingPercentEncodingForRFC3986() ?? "")&tags=\(tags.joined(separator: ",").addingPercentEncodingForRFC3986() ?? "")&open_note=yes&show_window=yes"
+        
+        // Codificación de URL para abrir la nota
+        let openURLString = "bear://x-callback-url/open-note?title=\(date.addingPercentEncodingForRFC3986() ?? "")&open_note=yes&show_window=yes"
+        
+        // Codificación de URL para fetch con x-success y x-error codificados
+        let fetchURLString = "bear://x-callback-url/open-note?title=\(date.addingPercentEncodingForRFC3986() ?? "")&open_note=no&show_window=no&exclude_trashed=yes&x-success=\(openURLString.addingPercentEncodingForRFC3986() ?? "")&x-error=\(createURLString.addingPercentEncodingForRFC3986() ?? "")"
+        
+        
+        if let fetchURL = URL(string: fetchURLString) {
+           
+            NSWorkspace.shared.open(fetchURL)
+        }
+        
+    }
+    
+    
+    
+    func getCurrentDateFormatted(date: Date = Date()) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
 
     
 }

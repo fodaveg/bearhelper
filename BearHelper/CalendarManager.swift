@@ -1,9 +1,22 @@
 import Foundation
 import EventKit
+import SwiftUI
 
 class CalendarManager: ObservableObject {
     let eventStore = EKEventStore()
-    @Published var selectedCalendarIDs: [String] = []
+    @Published var selectedCalendarIDs: [String] {
+        didSet {
+            UserDefaults.standard.set(selectedCalendarIDs, forKey: "selectedCalendarIDs")
+        }
+    }
+
+    init() {
+        if let storedCalendarIDs = UserDefaults.standard.array(forKey: "selectedCalendarIDs") as? [String] {
+            selectedCalendarIDs = storedCalendarIDs
+        } else {
+            selectedCalendarIDs = []
+        }
+    }
 
     func requestAccess(completion: @escaping (Bool) -> Void) {
         eventStore.requestFullAccessToEvents { granted, error in

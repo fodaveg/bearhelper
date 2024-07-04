@@ -58,7 +58,7 @@ class CalendarSyncManager: ObservableObject {
     //}
 
     func syncNow() {
-        updateTodayNoteWithCurrentDateEvents()
+        
     }
 
     private func getDateString(forDaysBefore daysBefore: Int) -> String {

@@ -7,6 +7,7 @@ struct TemplateEditorView: View {
     @State private var newName: String
     @State private var newContent: String
     @State private var newTag: String
+    @State private var newIsDaily: Bool
     @FocusState private var focusedField: Field?
     var onSave: (Template) -> Void
 
@@ -22,6 +23,7 @@ struct TemplateEditorView: View {
         self._newName = State(initialValue: template.wrappedValue.name)
         self._newContent = State(initialValue: template.wrappedValue.content)
         self._newTag = State(initialValue: template.wrappedValue.tag)
+        self._newIsDaily = State(initialValue: template.wrappedValue.isDaily)
     }
 
     var body: some View {
@@ -61,6 +63,9 @@ struct TemplateEditorView: View {
                             focusedField = nil
                         }
                 }
+                Section(header: Text("Daily")) { // Nueva sección para el checkbox
+                    Toggle("Is Daily", isOn: $newIsDaily)
+                }
             }
             .padding()
 
@@ -74,6 +79,7 @@ struct TemplateEditorView: View {
                     updatedTemplate.name = newName
                     updatedTemplate.content = newContent
                     updatedTemplate.tag = newTag
+                    updatedTemplate.isDaily = newIsDaily
                     onSave(updatedTemplate)
                     presentationMode.wrappedValue.dismiss()
                 }
