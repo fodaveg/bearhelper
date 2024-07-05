@@ -20,9 +20,9 @@ struct AboutView: View {
                     Text("App Icon not found")
                 }
                 VStack(alignment: .leading) {
-                    Text("BearHelper")
+                    Text("BearClaw")
                         .font(.title)
-                    Text("Version 1.0.0") // Actualiza con la versión real
+                    Text("Version 0.1") // Actualiza con la versión real
                         .font(.subheadline)
                 }
             }
