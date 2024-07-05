@@ -6,7 +6,12 @@ class TemplatesTableViewController: NSViewController, NSTableViewDelegate, NSTab
     var onDelete: ((Template) -> Void)?
 
     var tableView: NSTableView!
-
+    var remoteViewController: CustomRemoteViewController?
+    
+    func setupRemoteView() {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        remoteViewController = storyboard.instantiateController(withIdentifier: "CustomRemoteViewController") as? CustomRemoteViewController}
+    
     override func loadView() {
         self.view = NSView()
 

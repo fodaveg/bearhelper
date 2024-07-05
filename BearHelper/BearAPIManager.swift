@@ -73,8 +73,6 @@ class BearAPIManager {
         let open = open == true ? "yes" : "no"
         let show = show == true ? "yes" : "no"
 
-        let successCallback = "fodabear://openNoteSuccess"
-        let errorCallback = "fodabear://openNoteError"
         let openNoteURLString = "bear://x-callback-url/open-note?title=\(title)&open_note=\(open)&show_window=\(show)&exclude_trashed=yes"
         
         print("open note url: \(openNoteURLString)")
@@ -163,7 +161,7 @@ class BearAPIManager {
 
     private func handleOpenDailyNoteError(url: URL) {
         // Llamar al closure openNoteCompletion con un error
-        DailyNoteManager.shared.createDailyNoteWithDate(DailyNoteManager.shared.getCurrentDateFormatted())
+        NoteHandler.shared.createDailyNoteWithDate(DateUtils.getCurrentDateFormatted())
     }
 
     private func handleCreateNoteSuccess(url: URL) {

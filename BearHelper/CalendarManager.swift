@@ -60,5 +60,57 @@ class CalendarManager: ObservableObject {
         let calendars = eventStore.calendars(for: .event)
         return calendars.filter { selectedCalendarIDs.contains($0.calendarIdentifier) }
     }
+    
+    func fetchCalendarEvents(for dateString: String) -> String {
+        print("Fetching calendar events for date: \(dateString)")
+        
+        let selectedCalendars = self.selectedCalendars()
+        guard !selectedCalendars.isEmpty else {
+            print("Warning: No calendars selected")
+            return ""
+        }
+        
+        let startDate = getDate(from: dateString)
+        let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+        
+        print("Start date: \(startDate), End date: \(endDate)")
+        
+        do {
+            let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: selectedCalendars)
+            let events = eventStore.events(matching: predicate)
+            
+            print("Number of events found: \(events.count)")
+            
+            if events.isEmpty {
+                print("No events found for the specified date")
+                return "No events scheduled for this day."
+            }
+            
+            let now = Date()
+            let formattedEvents = events.map { event in
+                let formatter = DateFormatter()
+                formatter.dateFormat = "HH:mm"
+                let startTimeString = formatter.string(from: event.startDate)
+                let endTimeString = formatter.string(from: event.endDate)
+                
+                // Marcar como completada si la fecha de finalización es superior a la hora actual
+                let status = event.endDate < now ? "x" : " "
+                
+                return "- [\(status)] \(startTimeString) - \(endTimeString): \(event.title ?? "")"
+            }.joined(separator: "\n")
+            
+            print("Formatted events:\n\(formattedEvents)")
+            
+            return formattedEvents
+        } catch {
+            print("Error fetching calendar events: \(error.localizedDescription)")
+            return "Error fetching calendar events"
+        }
+    }
+    
+    private func getDate(from dateString: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.date(from: dateString)!
+    }
 }
-

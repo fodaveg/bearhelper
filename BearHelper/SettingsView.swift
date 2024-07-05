@@ -17,6 +17,7 @@ struct SettingsView: View {
 
     @EnvironmentObject var appDelegate: AppDelegate
     @EnvironmentObject var calendarManager: CalendarManager
+    @EnvironmentObject var calendarSyncManager: CalendarSyncManager
 
     var body: some View {
         VStack {
@@ -107,8 +108,8 @@ struct SettingsView: View {
                 Spacer()
                 Toggle("Launch at Login", isOn: $launchAtLogin)
                     .padding()
-                    .onChange(of: launchAtLogin) { newValue in
-                        appDelegate.settingsManager.setLaunchAtLogin(enabled: newValue)
+                    .onChange(of: launchAtLogin) {
+                        appDelegate.settingsManager.setLaunchAtLogin(enabled: launchAtLogin)
                     }
             }
         }
@@ -203,7 +204,7 @@ struct SettingsView: View {
             HStack {
                 Spacer()
                 Button("Sync Now") {
-                    appDelegate.syncNow()
+                    calendarSyncManager.syncNow()
                 }
                 .padding()
             }
