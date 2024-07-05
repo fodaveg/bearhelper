@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  BearHelperLauncher
 //
-//  Created by David Velasco on 24/6/24.
+//  Created by David Velasco on 3/7/24.
 //
 
 import SwiftUI

@@ -1,23 +1,20 @@
-import Cocoa
 import SwiftUI
 import ServiceManagement
 
 @main
 struct BearHelperApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    
     var body: some Scene {
         Settings {
-            SettingsView(setLaunchAtLogin: appDelegate.setLaunchAtLogin)
+            ContentView()
+                .environmentObject(appDelegate.settingsManager)
+                .environmentObject(appDelegate.noteManager)
+                .environmentObject(appDelegate.calendarSyncManager)
+                .environmentObject(appDelegate.noteHandler)
+                .environmentObject(appDelegate.noteManager.calendarManager)
+                .environmentObject(NoteHandler())
+                .environmentObject(CalendarSyncManager())
         }
-    }
-}
-
-extension String {
-    func addingPercentEncodingForRFC3986() -> String? {
-        let unreserved = "-._~"
-        var allowed = CharacterSet.alphanumerics
-        allowed.insert(charactersIn: unreserved)
-        return self.addingPercentEncoding(withAllowedCharacters: allowed)
     }
 }

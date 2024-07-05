@@ -1,16 +1,9 @@
-//
-//  CalendarPopoverView.swift
-//  BearHelper
-//
-//  Created by David Velasco on 28/6/24.
-//
-
 import SwiftUI
 
 struct CalendarPopoverView: View {
     var onSelectDate: (Date) -> Void
     @State private var selectedDate = Date()
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Select Date")
