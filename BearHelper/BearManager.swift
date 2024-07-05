@@ -40,7 +40,7 @@ class BearManager {
     
     func openTemplate(_ template: Template) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = SettingsManager.shared.selectedDateFormat
         let dateString = formatter.string(from: Date())
         
         let processedTemplate = NoteManager.shared.templateManager.processTemplate(template.content, for: dateString)

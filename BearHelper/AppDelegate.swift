@@ -14,7 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     let settingsManager = SettingsManager.shared
     let calendarSyncManager = CalendarSyncManager()
     let noteManager = NoteManager.shared
-
+    let noteHandler = NoteHandler()
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if !bearIntegrationManager.isBearInstalled() {
             bearIntegrationManager.showErrorMessage()

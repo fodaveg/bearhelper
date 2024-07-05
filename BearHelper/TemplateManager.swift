@@ -3,7 +3,7 @@ import AppKit
 
 class TemplateManager {
     let calendarManager = CalendarManager()
-
+    
     func processTemplateVariables(_ content: String, for dateString: String) -> String {
         let regex: NSRegularExpression
         do {
@@ -24,7 +24,7 @@ class TemplateManager {
             let days = Int(daysString) ?? 0
             
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.dateFormat = SettingsManager.shared.selectedDateFormat
             let today = formatter.date(from: dateString) ?? Date()
             let targetDate = Calendar.current.date(byAdding: .day, value: days, to: today)!
             let targetDateString = formatter.string(from: targetDate)
@@ -50,7 +50,7 @@ class TemplateManager {
                 let after = content[range.upperBound...]
                 return before + "\(calendarSectionHeader)\n" + events + "\n\(after)"
             } else {
-                return content + events
+                return content
             }
         } catch {
             print("Error al crear la expresión regular: \(error.localizedDescription)")
@@ -59,7 +59,7 @@ class TemplateManager {
     }
     
     func replaceDailySection(in content: String, with currentDate: String) -> String {
-        let dailySectionHeader = "## Daily"
+        let dailySectionHeader = SettingsManager.shared.dailySectionHeader
         let pattern = "\(dailySectionHeader)\\n- \\[\\[\\d{4}-\\d{2}-\\d{2}\\]\\]"
         
         do {
@@ -71,7 +71,7 @@ class TemplateManager {
                 let after = content[range.upperBound...]
                 return before + "\(dailySectionHeader)\n- [[\(currentDate)]]" + "\(after)"
             } else {
-                return content + "\(dailySectionHeader)\n- [[\(currentDate)]]"
+                return content
             }
         } catch {
             print("Error al crear la expresión regular: \(error.localizedDescription)")
@@ -99,7 +99,7 @@ class TemplateManager {
             let days = Int(daysString) ?? 0
             
             let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.dateFormat = SettingsManager.shared.selectedDateFormat
             let today = formatter.date(from: dateString) ?? Date()
             let targetDate = Calendar.current.date(byAdding: .day, value: days, to: today)!
             let targetDateString = formatter.string(from: targetDate)
@@ -115,9 +115,6 @@ class TemplateManager {
         let processedTemplate = processTemplate(dailyTemplate ?? "Daily", for: dateString)
         print(processedTemplate)
         print("processed template: (processedTemplate)")
-//        let events = calendarManager.fetchCalendarEvents(for: dateString)
-//        print("events: (events)")
-//        let replacedContent = replaceCalendarSection(in: processedTemplate, with: events)
         
         var urlString = "bear://x-callback-url/create?title=&text=\(processedTemplate)"
         if let tag = UserDefaults.standard.string(forKey: "dailyNoteTag"), !tag.isEmpty {

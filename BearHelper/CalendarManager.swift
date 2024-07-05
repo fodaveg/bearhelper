@@ -9,7 +9,7 @@ class CalendarManager: ObservableObject {
             UserDefaults.standard.set(selectedCalendarIDs, forKey: "selectedCalendarIDs")
         }
     }
-
+    
     init() {
         if let storedCalendarIDs = UserDefaults.standard.array(forKey: "selectedCalendarIDs") as? [String] {
             selectedCalendarIDs = storedCalendarIDs
@@ -17,7 +17,7 @@ class CalendarManager: ObservableObject {
             selectedCalendarIDs = []
         }
     }
-
+    
     func requestAccess(completion: @escaping (Bool) -> Void) {
         eventStore.requestFullAccessToEvents { granted, error in
             DispatchQueue.main.async {
@@ -25,7 +25,7 @@ class CalendarManager: ObservableObject {
             }
         }
     }
-
+    
     func addEvent(title: String, startDate: Date, endDate: Date, notes: String? = nil, completion: @escaping (Bool, Error?) -> Void) {
         let event = EKEvent(eventStore: eventStore)
         event.title = title
@@ -33,7 +33,7 @@ class CalendarManager: ObservableObject {
         event.endDate = endDate
         event.notes = notes
         event.calendar = eventStore.defaultCalendarForNewEvents
-
+        
         do {
             try eventStore.save(event, span: .thisEvent)
             completion(true, nil)
@@ -41,7 +41,7 @@ class CalendarManager: ObservableObject {
             completion(false, error)
         }
     }
-
+    
     func fetchEvents(startDate: Date, endDate: Date) -> [EKEvent]? {
         let selectedCalendars = self.selectedCalendars()
         guard !selectedCalendars.isEmpty else {
@@ -51,11 +51,11 @@ class CalendarManager: ObservableObject {
         let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: selectedCalendars)
         return eventStore.events(matching: predicate)
     }
-
+    
     func getCalendars() -> [EKCalendar] {
         return eventStore.calendars(for: .event)
     }
-
+    
     func selectedCalendars() -> [EKCalendar] {
         let calendars = eventStore.calendars(for: .event)
         return calendars.filter { selectedCalendarIDs.contains($0.calendarIdentifier) }
@@ -102,15 +102,12 @@ class CalendarManager: ObservableObject {
             print("Formatted events:\n\(formattedEvents)")
             
             return formattedEvents
-        } catch {
-            print("Error fetching calendar events: \(error.localizedDescription)")
-            return "Error fetching calendar events"
         }
     }
     
     private func getDate(from dateString: String) -> Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = SettingsManager.shared.selectedDateFormat
         return formatter.date(from: dateString)!
     }
 }

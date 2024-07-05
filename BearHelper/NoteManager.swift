@@ -15,7 +15,7 @@ class NoteManager: ObservableObject {
     
     func createDailyNoteForDate(selectedDate: Date) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = SettingsManager.shared.selectedDateFormat
         let dateString = formatter.string(from: selectedDate)
         
         getDailyNoteID(for: dateString) { noteContent in
@@ -40,7 +40,7 @@ class NoteManager: ObservableObject {
         
         let tag = UserDefaults.standard.string(forKey: "dailyNoteTag")?.addingPercentEncodingForRFC3986() ?? ""
         
-//        let encodedSearchText = searchText.addingPercentEncodingForRFC3986() ?? ""
+        //        let encodedSearchText = searchText.addingPercentEncodingForRFC3986() ?? ""
         let searchURLString = "bear://x-callback-url/search?term=\(searchText)&tag=\(tag)&x-success=fodabear://open-note-success&x-error=fodabear://open-note-error&token=XXXXX"
         if let searchURL = URL(string: searchURLString) {
             print("Searching daily note with URL: \(searchURL)")
@@ -78,7 +78,7 @@ class NoteManager: ObservableObject {
     
     func getCurrentDateFormatted(date: Date = Date()) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = SettingsManager.shared.selectedDateFormat
         return formatter.string(from: date)
     }
 }

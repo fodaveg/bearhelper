@@ -1,6 +1,6 @@
 import Cocoa
 
-class NoteHandler: NSObject {
+class NoteHandler: NSObject, ObservableObject {
     static let shared = NoteHandler()
     var bearManager = BearManager()
     var templateManager = TemplateManager()
@@ -17,7 +17,7 @@ class NoteHandler: NSObject {
         }
     }
     
-     func syncCalendarForDate(_ date: String?) {
+    @objc func syncCalendarForDate(_ date: String?) {
         let date = date ?? getCurrentDateFormatted()
         let fetchURLString = "bear://x-callback-url/open-note?title=\(date)&show_window=no&open_note=no&x-success=fodabear://update-daily-note-if-needed-success-for-sync"
         if let fetchURL = URL(string: fetchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
@@ -26,9 +26,8 @@ class NoteHandler: NSObject {
         }
     }
     
-    func updateHomeNoteIfNeeded() {
+    @objc func updateHomeNoteIfNeeded() {
         let homeNoteId = SettingsManager.shared.homeNoteID
-//        let currentDateFormatted = getCurrentDateFormatted()
         let fetchURLString = "bear://x-callback-url/open-note?id=\(homeNoteId)&show_window=no&open_note=no&x-success=fodabear://update-home-note-if-needed-success&x-error=fodabear://update-home-note-if-needed-error"
         if let fetchURL = URL(string: fetchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             print("Fetching home note with URL: \(fetchURL)")
@@ -36,7 +35,7 @@ class NoteHandler: NSObject {
         }
     }
     
-    func updateDailyNoteIfNeeded(_ date: String?) {
+    @objc func updateDailyNoteIfNeeded(_ date: String?) {
         let currentDateFormatted = getCurrentDateFormatted()
         let fetchURLString = "bear://x-callback-url/open-note?title=\(currentDateFormatted)&show_window=no&open_note=no&x-success=fodabear://update-daily-note-if-needed-success&x-error=fodabear://update-daily-note-if-needed-error"
         if let fetchURL = URL(string: fetchURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
@@ -45,9 +44,9 @@ class NoteHandler: NSObject {
         }
     }
     
-    func updateDailyNoteIfNeededError(url: URL) {}
+    @objc func updateDailyNoteIfNeededError(url: URL) {}
     
-    func updateDailyNoteIfNeededSuccess(url: URL) {
+    @objc func updateDailyNoteIfNeededSuccess(url: URL) {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else {
             return
@@ -60,7 +59,7 @@ class NoteHandler: NSObject {
         NoteManager.shared.updateDailyNoteWithCalendarEvents(for: title, noteContent: note, noteId: id)
     }
     
-    func updateDailyNoteIfNeededSuccessForSync(url: URL) {
+    @objc func updateDailyNoteIfNeededSuccessForSync(url: URL) {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else {
             return
@@ -72,7 +71,7 @@ class NoteHandler: NSObject {
         NoteManager.shared.updateDailyNoteWithCalendarEvents(for: title, noteContent: note, noteId: id, open: false)
     }
     
-    func updateHomeNoteIfNeededSuccess(url: URL) {
+    @objc func updateHomeNoteIfNeededSuccess(url: URL) {
         let homeNoteId = SettingsManager.shared.homeNoteID
         let currentDateFormatted = getCurrentDateFormatted()
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -85,7 +84,7 @@ class NoteHandler: NSObject {
         NoteManager.shared.updateHomeNoteWithCalendarEvents(for: currentDateFormatted, noteContent: note, homeNoteId: homeNoteId)
     }
     
-    func updateHomeNoteIfNeededError(url: URL) {
+    @objc func updateHomeNoteIfNeededError(url: URL) {
         print("updateHomeNoteIfNeededError: \(url)")
     }
     
@@ -100,7 +99,7 @@ class NoteHandler: NSObject {
         }
     }
     
-    func openDailyNoteSuccess(url: URL) {
+    @objc func openDailyNoteSuccess(url: URL) {
         if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
             let dailyId = queryItems.first(where: { $0.name == "id" })?.value
             if let dailyUrl = URL(string: "bear://x-callback-url/open-note?id=\(String(describing: dailyId))") {
@@ -109,7 +108,7 @@ class NoteHandler: NSObject {
         }
     }
     
-    func openDailyNoteError(url: URL) {
+    @objc func openDailyNoteError(url: URL) {
         createDailyNoteWithDate(getCurrentDateFormatted())
     }
     
@@ -124,7 +123,7 @@ class NoteHandler: NSObject {
         }
     }
     
-    func openDailyNoteWithDateSuccess(url: URL) {
+    @objc func openDailyNoteWithDateSuccess(url: URL) {
         if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
             let dailyId = queryItems.first(where: { $0.name == "id" })?.value
             if let dailyUrl = URL(string: "bear://x-callback-url/open-note?id=\(String(describing: dailyId))") {
@@ -133,14 +132,14 @@ class NoteHandler: NSObject {
         }
     }
     
-    func openDailyNoteWithDateError(url: URL) {
+    @objc func openDailyNoteWithDateError(url: URL) {
         if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
             let dailyDate = queryItems.first(where: { $0.name == "date" })?.value
             createDailyNoteWithDate(dailyDate)
         }
     }
     
-    func createDailyNoteWithDate(_ date: String?) {
+    @objc func createDailyNoteWithDate(_ date: String?) {
         let date = date ?? getCurrentDateFormatted()
         guard let template = SettingsManager.shared.loadTemplates().first(where: { $0.name == "Daily" }) else { return }
         let processedContent = templateManager.processTemplateVariables(template.content, for: date)
@@ -155,9 +154,9 @@ class NoteHandler: NSObject {
         }
     }
     
-    func getCurrentDateFormatted(date: Date = Date()) -> String {
+    @objc func getCurrentDateFormatted(date: Date = Date()) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = SettingsManager.shared.selectedDateFormat
         return formatter.string(from: date)
     }
     

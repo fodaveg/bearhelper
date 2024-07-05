@@ -4,7 +4,7 @@ import ServiceManagement
 
 class SettingsManager: ObservableObject {
     static let shared = SettingsManager()
-
+    
     @AppStorage("homeNoteID") var homeNoteID: String = ""
     @AppStorage("defaultAction") var defaultAction: String = "home"
     @AppStorage("templates") var templatesData: Data = Data()
@@ -13,22 +13,24 @@ class SettingsManager: ObservableObject {
     @AppStorage("dailySectionHeader") var dailySectionHeader: String = "## Daily"
     @AppStorage("dailyNoteTag") var dailyNoteTag: String = ""
     @AppStorage("dailyNoteTemplate") var dailyNoteTemplate: String = ""
-
+    @AppStorage("selectedDateFormat") var selectedDateFormat: String = "yyyy-MM-dd"
+    @AppStorage("customDateFormat") var customDateFormat: String = ""
+    
     private init() {}
-
+    
     func loadTemplates() -> [Template] {
         if let loadedTemplates = try? JSONDecoder().decode([Template].self, from: templatesData) {
             return loadedTemplates
         }
         return []
     }
-
+    
     func saveTemplates(_ templates: [Template]) {
         if let encodedTemplates = try? JSONEncoder().encode(templates) {
             templatesData = encodedTemplates
         }
     }
-
+    
     func setLaunchAtLogin(enabled: Bool) {
         do {
             if enabled {

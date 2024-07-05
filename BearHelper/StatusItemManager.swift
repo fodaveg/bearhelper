@@ -44,19 +44,19 @@ class StatusItemManager: NSObject, NSMenuItemValidation {
     @objc func showMenu() {
         print("Showing menu")
         let menu = NSMenu()
-        addMenuItem(to: menu, title: "Open Home Note", action: #selector(NoteHandler.openHomeNote), keyEquivalent: "")
+        addMenuItem(to: menu, title: "Open Home Note", action: #selector(NoteHandler.shared.openHomeNote), target: NoteHandler.shared)
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(to: menu, title: "Open Daily Note", action: #selector(NoteHandler.shared.openDailyNote), keyEquivalent: "")
-        addMenuItem(to: menu, title: "Create Custom Daily Note", action: #selector(showDatePicker), keyEquivalent: "")
+        addMenuItem(to: menu, title: "Open Daily Note", action: #selector(NoteHandler.shared.openDailyNote), target: NoteHandler.shared)
+        addMenuItem(to: menu, title: "Create Custom Daily Note", action: #selector(showDatePicker),target: self)
         menu.addItem(NSMenuItem.separator())
         addCustomTemplateItems(to: menu)
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(to: menu, title: "Sync Calendar Events", action: #selector(CalendarSyncManager.shared.syncNow), keyEquivalent: "")
+        addMenuItem(to: menu, title: "Sync Calendar Events", action: #selector(CalendarSyncManager.shared.syncNow), target: CalendarSyncManager.shared)
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(to: menu, title: "Settings", action: #selector(AppDelegate.shared.openSettings), keyEquivalent: "")
-        addMenuItem(to: menu, title: "About", action: #selector(openAbout), keyEquivalent: "")
+        addMenuItem(to: menu, title: "Settings", action: #selector(AppDelegate.shared.openSettings), target: AppDelegate.shared)
+        addMenuItem(to: menu, title: "About", action: #selector(openAbout), target: self)
         menu.addItem(NSMenuItem.separator())
-        addMenuItem(to: menu, title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+        addMenuItem(to: menu, title: "Quit", action: #selector(NSApplication.terminate(_:)), target: nil)
         
         statusItem.menu = menu
         statusItem.button?.performClick(nil)
@@ -67,14 +67,16 @@ class StatusItemManager: NSObject, NSMenuItemValidation {
         }
     }
     
-    private func addMenuItem(to menu: NSMenu, title: String, action: Selector, keyEquivalent: String) {
-        menu.addItem(NSMenuItem(title: title, action: action, keyEquivalent: keyEquivalent))
+    private func addMenuItem(to menu: NSMenu, title: String, action: Selector, target: AnyObject?) {
+        let menuItem = NSMenuItem(title: title, action: action, keyEquivalent: "")
+        menuItem.target = target
+        menu.addItem(menuItem)
     }
     
     private func addCustomTemplateItems(to menu: NSMenu) {
         let templates = SettingsManager.shared.loadTemplates()
         for template in templates where !template.isDaily {
-            addMenuItem(to: menu, title: "Create \(template.name) Note", action: #selector(NoteHandler.shared.openTemplateNote(_:)), keyEquivalent: "")
+            addMenuItem(to: menu, title: "Create \(template.name) Note", action: #selector(NoteHandler.shared.openTemplateNote(_:)), target: NoteHandler.shared)
         }
     }
     
@@ -126,9 +128,8 @@ class StatusItemManager: NSObject, NSMenuItemValidation {
     
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        // Habilitar todos los elementos del menú como ejemplo
         print("Validating menu item: \(menuItem.title)")
-
+        
         return true
     }
     

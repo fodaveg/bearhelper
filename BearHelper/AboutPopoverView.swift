@@ -10,7 +10,7 @@ import SwiftUI
 struct AboutPopoverView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Text("BearHelper")
+            Text("Bear Claw")
                 .font(.title)
             Text("Version 0.1")
                 .font(.subheadline)
