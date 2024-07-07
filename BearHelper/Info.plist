@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.utilities</string>
-	<key>SMLoginItemSetEnabled</key>
-	<true/>
-	<key>NSCalendarsUsageDescription</key>
-	<string>We need access to your calendar to manage events.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -27,5 +21,7 @@
 	<array>
 		<string>i386</string>
 	</array>
+	<key>SMLoginItemSetEnabled</key>
+	<true/>
 </dict>
 </plist>

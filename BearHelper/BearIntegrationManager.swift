@@ -2,14 +2,14 @@ import Cocoa
 
 class BearIntegrationManager {
     static let shared = BearIntegrationManager()
-    
+
     func isBearInstalled() -> Bool {
         if let url = URL(string: "bear://") {
             return NSWorkspace.shared.urlForApplication(toOpen: url) != nil
         }
         return false
     }
-    
+
     func showErrorMessage() {
         let alert = NSAlert()
         alert.messageText = "Bear is not installed"
@@ -18,7 +18,7 @@ class BearIntegrationManager {
         alert.addButton(withTitle: "Close")
         alert.runModal()
     }
-    
+
     func handleCallback(url: URL) {
         if let host = url.host {
             switch host {

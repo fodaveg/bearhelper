@@ -31,7 +31,7 @@ struct AboutPopoverView: View {
                 Text("Mastodon:")
                 Link("@fodaveg", destination: URL(string: "https://masto.es/@fodaveg")!)
             }
-            
+
             .padding(.vertical, 5)
             Spacer()
         }

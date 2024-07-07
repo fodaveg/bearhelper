@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     let calendarSyncManager = CalendarSyncManager()
     let noteManager = NoteManager.shared
     let noteHandler = NoteHandler()
-    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if !bearIntegrationManager.isBearInstalled() {
             bearIntegrationManager.showErrorMessage()
@@ -24,19 +24,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         } else {
             print("Bear is installed")
         }
-        
+
         StatusItemManager.shared.setupStatusItem()
         configureLaunchAtLogin()
         requestCalendarAccess()
     }
-    
+
     func configureLaunchAtLogin() {
         resetLaunchAtLoginState()
         let launchAtLogin = settingsManager.launchAtLogin
         print("Configuring launch at login: \(launchAtLogin)")
         settingsManager.setLaunchAtLogin(enabled: launchAtLogin)
     }
-    
+
     func requestCalendarAccess() {
         noteManager.calendarManager.requestAccess { [weak self] granted in
             guard let self = self else { return }
@@ -48,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             }
         }
     }
-    
+
     func resetLaunchAtLoginState() {
         do {
             if SMAppService.mainApp.status == .enabled {
@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             print("Failed to reset launch at login status: \(error.localizedDescription)")
         }
     }
-    
+
     @objc func openSettings() {
         print("Opening settings")
         if settingsWindowController == nil {
@@ -68,7 +68,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         settingsWindowController?.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
-    
+
     private func createSettingsWindow() {
         print("Creating settings window")
         let settingsView = SettingsView()
@@ -85,7 +85,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         window.title = "Settings"
         settingsWindowController = NSWindowController(window: window)
     }
-    
+
     func application(_ app: NSApplication, open urls: [URL]) {
         for url in urls {
             if url.scheme == "fodabear" {

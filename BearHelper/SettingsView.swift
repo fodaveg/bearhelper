@@ -11,20 +11,20 @@ struct SettingsView: View {
     @AppStorage("calendarSectionHeader") private var calendarSectionHeader: String = "## Calendar Events"
     @AppStorage("dailySectionHeader") private var dailySectionHeader: String = "## Daily"
     @AppStorage("selectedDateFormat") private var selectedDateFormat: String = "yyyy-MM-dd"
-    
+
     @State private var templates: [Template] = []
     @State private var showModal = false
     @State private var editingTemplate: Template?
     @State private var selectedTemplates = Set<UUID>()
     @State private var selectedTab = 0
     @State private var customDateFormat: String = ""
-    
+
     @EnvironmentObject var appDelegate: AppDelegate
     @EnvironmentObject var calendarManager: CalendarManager
     @EnvironmentObject var calendarSyncManager: CalendarSyncManager
-    
+
     let dateFormats = ["yyyy-MM-dd", "dd/MM/yyyy", "MM-dd-yyyy", "EEEE, MMM d, yyyy", "MMMM d, yyyy", "MMM d, yyyy", "custom date format"]
-    
+
     var body: some View {
         VStack {
             Picker("", selection: $selectedTab) {
@@ -34,7 +34,7 @@ struct SettingsView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding()
-            
+
             if selectedTab == 0 {
                 generalSettings
             } else if selectedTab == 1 {
@@ -73,7 +73,7 @@ struct SettingsView: View {
         }
         .frame(minWidth: 400, minHeight: 600)
     }
-    
+
     private var generalSettings: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("General")
@@ -82,16 +82,16 @@ struct SettingsView: View {
             Group {
                 Text("Home Note ID:")
                     .padding(.horizontal)
-                
+
                 TextField("Paste the note ID here", text: $homeNoteID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
             }
-            
+
             Group {
                 Text("Left Click Action:")
                     .padding(.horizontal)
-                
+
                 Picker("", selection: $defaultAction) {
                     Text("Disabled").tag("disabled")
                     Text("Open Home Note").tag("home")
@@ -100,27 +100,27 @@ struct SettingsView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)
             }
-            
+
             Group {
                 Text("Calendar Section Header:")
                     .padding(.horizontal)
-                
+
                 TextField("Enter the header for calendar events", text: $calendarSectionHeader)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
-                
+
                 Text("Daily Section Header:")
                     .padding(.horizontal)
-                
+
                 TextField("Enter the header for daily section", text: $dailySectionHeader)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
             }
-            
+
             Group {
                 Text("Date Format:")
                     .padding(.horizontal)
-                
+
                 HStack {
                     Picker("", selection: Binding(
                         get: { selectedDateFormat == customDateFormat ? "custom date format" : selectedDateFormat },
@@ -138,7 +138,7 @@ struct SettingsView: View {
                     }
                     .pickerStyle(MenuPickerStyle())
                     .padding(.horizontal)
-                    
+
                     Button(action: {
                         let url = URL(string: "https://www.datetimeformatter.com/")!
                         NSWorkspace.shared.open(url)
@@ -147,7 +147,7 @@ struct SettingsView: View {
                     }
                     .padding(.horizontal)
                 }
-                
+
                 if selectedDateFormat == customDateFormat {
                     TextField("Enter custom date format", text: $customDateFormat, onCommit: {
                         selectedDateFormat = customDateFormat
@@ -156,9 +156,9 @@ struct SettingsView: View {
                     .padding(.horizontal)
                 }
             }
-            
+
             Spacer()
-            
+
             HStack {
                 Spacer()
                 Toggle("Launch at Login", isOn: $launchAtLogin)
@@ -169,13 +169,13 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     private var templatesSettings: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("Templates")
                 .font(.title2)
                 .padding(.horizontal)
-            
+
             VStack {
                 List(selection: $selectedTemplates) {
                     ForEach(templates) { template in
@@ -193,7 +193,7 @@ struct SettingsView: View {
                 .cornerRadius(10)
             }
             .padding(.horizontal)
-            
+
             HStack {
                 Spacer()
                 Button(action: {
@@ -225,13 +225,13 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     private var calendarSettings: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("Calendars")
                 .font(.title2)
                 .padding(.horizontal)
-            
+
             VStack {
                 List {
                     ForEach(calendarManager.getCalendars(), id: \.self) { (calendar: EKCalendar) in
@@ -255,7 +255,7 @@ struct SettingsView: View {
                 .cornerRadius(10)
             }
             .padding(.horizontal)
-            
+
             HStack {
                 Spacer()
                 Button("Sync Now") {
@@ -265,7 +265,7 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     private func loadTemplates() {
         templates = appDelegate.settingsManager.loadTemplates()
         if templates.isEmpty {
@@ -274,16 +274,16 @@ struct SettingsView: View {
             saveTemplates()
         }
     }
-    
+
     private func saveTemplates() {
         appDelegate.settingsManager.saveTemplates(templates)
     }
-    
+
     private func deleteTemplate(at offsets: IndexSet) {
         templates.remove(atOffsets: offsets)
         saveTemplates()
     }
-    
+
     private func deleteSelectedTemplates() {
         templates.removeAll { template in
             selectedTemplates.contains(template.id)
@@ -291,7 +291,7 @@ struct SettingsView: View {
         selectedTemplates.removeAll()
         saveTemplates()
     }
-    
+
     private func formattedDate(for format: String) -> String {
         let dateFormatter = DateFormatter()
         if format == "custom date format" {
