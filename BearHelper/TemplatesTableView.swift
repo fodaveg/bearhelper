@@ -1,5 +1,6 @@
 import SwiftUI
 import AppKit
+import BearClawCore
 
 struct TemplatesTableView: NSViewRepresentable {
     @Binding var templates: [Template]

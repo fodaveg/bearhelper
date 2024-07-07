@@ -36,6 +36,16 @@ class BearIntegrationManager {
                 NoteHandler.shared.openDailyNoteSuccess(url: url)
             case "open-daily-note-error":
                 NoteHandler.shared.openDailyNoteError(url: url)
+            case "sync-note":
+                NoteHandler.shared.syncNoteById(url: url)
+            case "replace-sync-placeholder":
+                NoteHandler.shared.openNoteForNoteAndOpen(url: url)
+            case "replace-sync-placeholder-action":
+                NoteHandler.shared.updateNoteAndOpen(url: url)
+            case "open-daily-note-for-date":
+                NoteHandler.shared.openDailyNoteForDate(url: url)
+            case "create-daily-note-for-date":
+                NoteHandler.shared.createDailyNoteWithDate(url: url)
             default:
                 break
             }

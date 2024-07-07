@@ -2,6 +2,7 @@ import Cocoa
 import SwiftUI
 import ServiceManagement
 import EventKit
+import BearClawCore
 
 class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     static let shared = AppDelegate()

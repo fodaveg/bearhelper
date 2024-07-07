@@ -1,9 +1,10 @@
 import Foundation
 import ServiceManagement
 import AppKit
+import BearClawCore
 
 class CalendarSyncManager: NSObject, ObservableObject {
-    static let shared = CalendarSyncManager()
+    public static let shared = CalendarSyncManager()
     let noteManager = NoteManager.shared
     var updateTimer: Timer?
     
@@ -32,6 +33,8 @@ class CalendarSyncManager: NSObject, ObservableObject {
             NSWorkspace.shared.open(fetchURL)
         }
     }
+    
+    func scheduleCalendarUpdates(){}
     
     private func getDateString(forDaysBefore daysBefore: Int) -> String {
         let formatter = DateFormatter()

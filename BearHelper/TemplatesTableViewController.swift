@@ -1,4 +1,5 @@
 import Cocoa
+import BearClawCore
 
 class TemplatesTableViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     var templates: [Template] = []

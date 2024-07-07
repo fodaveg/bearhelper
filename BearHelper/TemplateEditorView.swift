@@ -1,5 +1,6 @@
 import SwiftUI
 import Carbon.HIToolbox.Events
+import BearClawCore
 
 struct TemplateEditorView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -49,6 +50,18 @@ struct TemplateEditorView: View {
                             Spacer()
                             Button("Calendar") {
                                 insertSnippet("\(SettingsManager.shared.calendarSectionHeader)")
+                            }
+                            Spacer()
+                            Button("Sync Now") {
+                                insertSnippet("%syncnow()%")
+                            }
+                            Spacer()
+                            Button("Yesterday") {
+                                insertSnippet("[%date(-1)%](fodabear://open-daily-note-for-date?date=%date(-1)%)")
+                            }
+                            Spacer()
+                            Button("Tomorrow") {
+                                insertSnippet("[%date(+1)%](fodabear://open-daily-note-for-date?date=%date(+1)%)")
                             }
                             Spacer()
                         }

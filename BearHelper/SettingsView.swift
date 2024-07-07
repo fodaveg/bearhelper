@@ -1,6 +1,7 @@
 import SwiftUI
 import EventKit
 import AppKit
+import BearClawCore
 
 struct SettingsView: View {
     @AppStorage("homeNoteID") private var homeNoteID: String = ""

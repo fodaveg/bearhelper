@@ -1,5 +1,6 @@
 import Cocoa
 import SwiftUI
+import BearClawCore
 
 class StatusItemManager: NSObject, NSMenuItemValidation {
     static let shared = StatusItemManager()
