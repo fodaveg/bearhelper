@@ -17,7 +17,6 @@
 		63695E862C2F5CC700B12BEB /* TemplatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E852C2F5CC700B12BEB /* TemplatesTableViewController.swift */; };
 		63695E882C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E872C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift */; };
 		63695E8A2C2F6BF500B12BEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E892C2F6BF500B12BEB /* AppDelegate.swift */; };
-		6375B4882C3058CA00A855DF /* CalendarSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375B4872C3058CA00A855DF /* CalendarSyncManager.swift */; };
 		6375B48E2C30912300A855DF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375B48D2C30912300A855DF /* ContentView.swift */; };
 		638850552C3AF438004F34E2 /* swiftlint.sb in Resources */ = {isa = PBXBuildFile; fileRef = 638850542C3AF438004F34E2 /* swiftlint.sb */; };
 		639CA3222C3AEA76005944F2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 639CA3212C3AEA76005944F2 /* .swiftlint.yml */; };
@@ -31,9 +30,7 @@
 		63C577CB2C29D6DF00FC4FDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C577CA2C29D6DF00FC4FDC /* ContentView.swift */; };
 		63C577CD2C29D6E100FC4FDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CC2C29D6E100FC4FDC /* Assets.xcassets */; };
 		63C577D02C29D6E100FC4FDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CF2C29D6E100FC4FDC /* Preview Assets.xcassets */; };
-		63F5CA3F2C383D1A000DBA92 /* BearIntegrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA3E2C383D1A000DBA92 /* BearIntegrationManager.swift */; };
 		63F5CA412C383D42000DBA92 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA402C383D42000DBA92 /* StatusItemManager.swift */; };
-		63F5CA432C383DBE000DBA92 /* NoteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA422C383DBE000DBA92 /* NoteHandler.swift */; };
 		63F5CA4B2C384F0E000DBA92 /* CustomRemoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA4A2C384F0E000DBA92 /* CustomRemoteViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,7 +125,6 @@
 		63695E852C2F5CC700B12BEB /* TemplatesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesTableViewController.swift; sourceTree = "<group>"; };
 		63695E872C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesTableViewRepresentable.swift; sourceTree = "<group>"; };
 		63695E892C2F6BF500B12BEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6375B4872C3058CA00A855DF /* CalendarSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSyncManager.swift; sourceTree = "<group>"; };
 		6375B48D2C30912300A855DF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		638850542C3AF438004F34E2 /* swiftlint.sb */ = {isa = PBXFileReference; lastKnownFileType = text; path = swiftlint.sb; sourceTree = "<group>"; };
 		639CA3212C3AEA76005944F2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -148,9 +144,7 @@
 		63C577D12C29D6E100FC4FDC /* BearHelperLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BearHelperLauncher.entitlements; sourceTree = "<group>"; };
 		63C577D52C29D86600FC4FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		63C577D62C2A04D700FC4FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		63F5CA3E2C383D1A000DBA92 /* BearIntegrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearIntegrationManager.swift; sourceTree = "<group>"; };
 		63F5CA402C383D42000DBA92 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
-		63F5CA422C383DBE000DBA92 /* NoteHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteHandler.swift; sourceTree = "<group>"; };
 		63F5CA4A2C384F0E000DBA92 /* CustomRemoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRemoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -229,11 +223,8 @@
 				63695E852C2F5CC700B12BEB /* TemplatesTableViewController.swift */,
 				63695E872C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift */,
 				63695E892C2F6BF500B12BEB /* AppDelegate.swift */,
-				6375B4872C3058CA00A855DF /* CalendarSyncManager.swift */,
 				6375B48D2C30912300A855DF /* ContentView.swift */,
-				63F5CA3E2C383D1A000DBA92 /* BearIntegrationManager.swift */,
 				63F5CA402C383D42000DBA92 /* StatusItemManager.swift */,
-				63F5CA422C383DBE000DBA92 /* NoteHandler.swift */,
 				63F5CA4A2C384F0E000DBA92 /* CustomRemoteViewController.swift */,
 			);
 			path = BearHelper;
@@ -426,9 +417,7 @@
 			files = (
 				63695E802C2F55B200B12BEB /* AboutPopoverView.swift in Sources */,
 				63C577BE2C29B57600FC4FDC /* SettingsView.swift in Sources */,
-				6375B4882C3058CA00A855DF /* CalendarSyncManager.swift in Sources */,
 				63695E862C2F5CC700B12BEB /* TemplatesTableViewController.swift in Sources */,
-				63F5CA432C383DBE000DBA92 /* NoteHandler.swift in Sources */,
 				63695E7E2C2F559800B12BEB /* CalendarPopoverView.swift in Sources */,
 				63F5CA4B2C384F0E000DBA92 /* CustomRemoteViewController.swift in Sources */,
 				63695E7C2C2F548D00B12BEB /* TemplateEditorView.swift in Sources */,
@@ -439,7 +428,6 @@
 				63F5CA412C383D42000DBA92 /* StatusItemManager.swift in Sources */,
 				63695E882C2F5CF200B12BEB /* TemplatesTableViewRepresentable.swift in Sources */,
 				63695E842C2F5B7500B12BEB /* TemplatesTableView.swift in Sources */,
-				63F5CA3F2C383D1A000DBA92 /* BearIntegrationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
