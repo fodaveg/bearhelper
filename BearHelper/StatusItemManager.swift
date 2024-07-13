@@ -87,7 +87,7 @@ class StatusItemManager: NSObject, NSMenuItemValidation {
             popover?.contentViewController = NSHostingController(rootView: CalendarPopoverView(onSelectDate: { (selectedDate: Date) in
                 self.popover?.performClose(nil)
                 let selectedDateString = DateUtils.getCurrentDateFormatted(date: selectedDate)
-                NoteHandler.shared.createDailyNoteWithDate(selectedDateString)
+                NoteHandler.shared.createDailyNoteWithDateString(selectedDateString)
             }))
             popover?.behavior = .transient
         }

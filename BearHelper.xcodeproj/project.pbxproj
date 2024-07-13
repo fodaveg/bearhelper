@@ -30,6 +30,7 @@
 		63C577CB2C29D6DF00FC4FDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C577CA2C29D6DF00FC4FDC /* ContentView.swift */; };
 		63C577CD2C29D6E100FC4FDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CC2C29D6E100FC4FDC /* Assets.xcassets */; };
 		63C577D02C29D6E100FC4FDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CF2C29D6E100FC4FDC /* Preview Assets.xcassets */; };
+		63F235D02C42A4C800CDB3EA /* BearHelperLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63C577C62C29D6DF00FC4FDC /* BearHelperLauncher.app */; };
 		63F5CA412C383D42000DBA92 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA402C383D42000DBA92 /* StatusItemManager.swift */; };
 		63F5CA4B2C384F0E000DBA92 /* CustomRemoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA4A2C384F0E000DBA92 /* CustomRemoteViewController.swift */; };
 /* End PBXBuildFile section */
@@ -113,6 +114,19 @@
 			remoteInfo = BearHelperLauncher;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		63F235CF2C42A47800CDB3EA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				63F235D02C42A4C800CDB3EA /* BearHelperLauncher.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BearHelperLauncher.xcodeproj; path = BearHelperLauncher/BearHelperLauncher/BearHelperLauncher.xcodeproj; sourceTree = "<group>"; };
@@ -276,9 +290,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63C577952C298C8B00FC4FDC /* Build configuration list for PBXNativeTarget "BearHelper" */;
 			buildPhases = (
+				63F235D32C42D2FF00CDB3EA /* ShellScript */,
 				63C577822C298C8A00FC4FDC /* Sources */,
 				63C577832C298C8A00FC4FDC /* Frameworks */,
 				63C577842C298C8A00FC4FDC /* Resources */,
+				63F235CF2C42A47800CDB3EA /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -409,6 +425,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		63F235D32C42D2FF00CDB3EA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\n# Ruta al Info.plist del proyecto\nINFOPLIST_FILE=\"/Users/david/Library/Mobile Documents/com~apple~CloudDocs/xcode/BearHelper/BearHelper/Info.plist\"\nTEMP_PLIST=\"/tmp/Info.plist\"\n\n# Mensaje de depuración: Mostrar la ruta del Info.plist\necho \"Info.plist path: \\\"$INFOPLIST_FILE\\\"\"\n\n# Verificar si el archivo Info.plist existe\nif [ ! -f \"$INFOPLIST_FILE\" ]; then\n    echo \"Error: Info.plist not found at path \\\"$INFOPLIST_FILE\\\"\"\n    exit 1\nfi\n\n# Copiar el Info.plist a un directorio temporal\ncp \"$INFOPLIST_FILE\" \"$TEMP_PLIST\"\n\n# Obtener el número de build actual\nCURRENT_BUILD_NUMBER=$(defaults read \"$TEMP_PLIST\" CFBundleVersion)\nEXIT_CODE=$?\n\n# Verificar si el comando anterior fue exitoso\nif [ $EXIT_CODE -ne 0 ]; then\n    echo \"Error: Failed to get current build number from Info.plist\"\n    exit $EXIT_CODE\nfi\n\n# Mensaje de depuración: Mostrar el número de build actual\necho \"Current build number: $CURRENT_BUILD_NUMBER\"\n\n# Incrementa el número de build en 1\nNEW_BUILD_NUMBER=$(($CURRENT_BUILD_NUMBER + 1))\n\n# Mensaje de depuración: Mostrar el nuevo número de build\necho \"New build number: $NEW_BUILD_NUMBER\"\n\n# Actualiza el número de build en el Info.plist temporal\ndefaults write \"$TEMP_PLIST\" CFBundleVersion \"$NEW_BUILD_NUMBER\"\nEXIT_CODE=$?\n\n# Verificar si el comando anterior fue exitoso\nif [ $EXIT_CODE -ne 0 ]; then\n    echo \"Error: Failed to set new build number in Info.plist\"\n    exit $EXIT_CODE\nfi\n\n# Copiar el Info.plist actualizado de vuelta a su ubicación original\ncp \"$TEMP_PLIST\" \"$INFOPLIST_FILE\"\n\n# Mensaje de éxito\necho \"Build number incremented to $NEW_BUILD_NUMBER\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63C577822C298C8A00FC4FDC /* Sources */ = {
@@ -616,6 +652,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = BearHelper/BearHelper.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -650,6 +687,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = BearHelper/BearHelper.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -689,6 +727,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelperLauncher/Preview Content\"";
+				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BearHelperLauncher/Info.plist;
@@ -720,6 +759,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelperLauncher/Preview Content\"";
+				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BearHelperLauncher/Info.plist;

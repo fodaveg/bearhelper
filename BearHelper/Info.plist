@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleVersion</key>
+	<string>47</string>
+	<key>CFBundleIconFile</key>
+	<string>BearClawLogo.icns</string>
+	<key>SMLoginItem</key>
+	<array>
+		<string>net.fodaveg.BearHelperLauncher</string>
+	</array>
+	<key>SMPrivilegedExecutables</key>
+	<dict/>
+	<key>net.fodaveg.BearHelperLauncher</key>
+	<string>$(CFBundleIdentifier)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -10,7 +22,7 @@
 			<key>CFBundleURLIconFile</key>
 			<string></string>
 			<key>CFBundleURLName</key>
-			<string>net.fodaveg.bearhelper</string>
+			<string>net.fodaveg.BearHelper</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fodabear</string>
@@ -21,7 +33,5 @@
 	<array>
 		<string>i386</string>
 	</array>
-	<key>SMLoginItemSetEnabled</key>
-	<true/>
 </dict>
 </plist>

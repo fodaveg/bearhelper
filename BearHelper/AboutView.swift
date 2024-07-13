@@ -11,7 +11,7 @@ struct AboutView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                if let appIcon = NSImage(named: "AppIcon") {
+                if let appIcon = NSImage(named: "bear_claw_logo") {
                     Image(nsImage: appIcon)
                         .resizable()
                         .frame(width: 50, height: 50)
@@ -20,7 +20,7 @@ struct AboutView: View {
                     Text("App Icon not found")
                 }
                 VStack(alignment: .leading) {
-                    Text("BearClaw")
+                    Text("Bear Clawa")
                         .font(.title)
                     Text("Version 0.1") // Actualiza con la versión real
                         .font(.subheadline)

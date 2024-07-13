@@ -10,11 +10,32 @@ import SwiftUI
 struct AboutPopoverView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Bear Claw")
-                .font(.title)
-            Text("Version 0.1")
-                .font(.subheadline)
-            Spacer()
+            HStack {
+                if let appIcon = NSImage(named: "bear_claw_logo") {
+                    Image(nsImage: appIcon)
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                } else {
+                    Text("App Icon not found")
+                }
+                VStack(alignment: .leading) {
+                    Text("Bear Claw")
+                        .font(.title)
+                    
+                    // Obtén la versión y el build de Info.plist
+                    if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+                       let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                        Text("Version \(version) (Build \(build))")
+                            .font(.subheadline)
+                    } else {
+                        Text("Version not found")
+                            .font(.subheadline)
+                    }
+                }
+            }
+            .padding()
+            Divider()
             HStack {
                 Image(systemName: "envelope.fill")
                     .foregroundColor(.blue)
@@ -27,11 +48,12 @@ struct AboutPopoverView: View {
                     Image(nsImage: mastodonIcon)
                         .resizable()
                         .frame(width: 24, height: 24)
+                } else {
+                    Text("Mastodon Icon not found")
                 }
                 Text("Mastodon:")
                 Link("@fodaveg", destination: URL(string: "https://masto.es/@fodaveg")!)
             }
-
             .padding(.vertical, 5)
             Spacer()
         }

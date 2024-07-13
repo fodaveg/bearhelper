@@ -140,7 +140,7 @@ struct SettingsView: View {
                     .padding(.horizontal)
 
                     Button(action: {
-                        let url = URL(string: "https://www.datetimeformatter.com/")!
+                        let url = URL(string: "https://www.datetimeformatter.com/how-to-format-date-time-in-swift/")!
                         NSWorkspace.shared.open(url)
                     }) {
                         Image(systemName: "questionmark.circle")
