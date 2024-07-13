@@ -1,61 +1,61 @@
 {
   "images" : [
     {
-      "filename" : "bear_paw_icon_light_16x16.png",
+      "filename" : "BearClawLogo (6).png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "bear_paw_icon_light_32x32.png",
+      "filename" : "BearClawLogo (5) 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "bear_paw_icon_light_32x32 1.png",
+      "filename" : "BearClawLogo (5).png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "bear_paw_icon_light_64x64.png",
+      "filename" : "BearClawLogo (4).png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "bear_paw_icon_light_128x128.png",
+      "filename" : "BearClawLogo (3).png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "bear_paw_icon_light_256x256.png",
+      "filename" : "bear_claw_logo 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "bear_paw_icon_light_256x256 1.png",
+      "filename" : "bear_claw_logo.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "bear_paw_icon_light_512x512.png",
+      "filename" : "BearClawLogo (2) 1.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "bear_paw_icon_light_512x512 1.png",
+      "filename" : "BearClawLogo (2).png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "bear-claw-light 1.png",
+      "filename" : "BearClawLogo (1).png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"

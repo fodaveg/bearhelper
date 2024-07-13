@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		632F99972C35F2B60043D1AE /* BearHelperLauncher.app in Resources */ = {isa = PBXBuildFile; fileRef = 63C577C62C29D6DF00FC4FDC /* BearHelperLauncher.app */; };
-		632F99C52C35F6780043D1AE /* BearHelperLauncher.app in Resources */ = {isa = PBXBuildFile; fileRef = 632F99C42C35F64B0043D1AE /* BearHelperLauncher.app */; };
 		635CFEC82C395A3900D0EE04 /* BearClawCore in Frameworks */ = {isa = PBXBuildFile; productRef = 635CFEC72C395A3900D0EE04 /* BearClawCore */; };
 		63695E7C2C2F548D00B12BEB /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */; };
 		63695E7E2C2F559800B12BEB /* CalendarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */; };
@@ -29,7 +28,6 @@
 		63C577C92C29D6DF00FC4FDC /* BearHelperLauncherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C577C82C29D6DF00FC4FDC /* BearHelperLauncherApp.swift */; };
 		63C577CB2C29D6DF00FC4FDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C577CA2C29D6DF00FC4FDC /* ContentView.swift */; };
 		63C577CD2C29D6E100FC4FDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CC2C29D6E100FC4FDC /* Assets.xcassets */; };
-		63C577D02C29D6E100FC4FDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C577CF2C29D6E100FC4FDC /* Preview Assets.xcassets */; };
 		63F235D02C42A4C800CDB3EA /* BearHelperLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63C577C62C29D6DF00FC4FDC /* BearHelperLauncher.app */; };
 		63F5CA412C383D42000DBA92 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA402C383D42000DBA92 /* StatusItemManager.swift */; };
 		63F5CA4B2C384F0E000DBA92 /* CustomRemoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F5CA4A2C384F0E000DBA92 /* CustomRemoteViewController.swift */; };
@@ -78,20 +76,6 @@
 			remoteGlobalIDString = 63C577C52C29D6DF00FC4FDC;
 			remoteInfo = BearHelperLauncher;
 		};
-		632F99C32C35F64B0043D1AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 632F99AD2C35F64A0043D1AE;
-			remoteInfo = BearHelperLauncher;
-		};
-		632F99CA2C35F6980043D1AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 632F99AD2C35F64A0043D1AE;
-			remoteInfo = BearHelperLauncher;
-		};
 		632F99CC2C35F6B20043D1AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63C5777E2C298C8A00FC4FDC /* Project object */;
@@ -129,8 +113,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BearHelperLauncher.xcodeproj; path = BearHelperLauncher/BearHelperLauncher/BearHelperLauncher.xcodeproj; sourceTree = "<group>"; };
-		632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BearHelperLauncher.xcodeproj; path = BearHelperLauncher/BearHelperLauncher/BearHelperLauncher.xcodeproj; sourceTree = "<group>"; };
 		635CFEC52C3951C300D0EE04 /* BearClawCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BearClawCore; path = ../BearClawCore; sourceTree = "<group>"; };
 		63695E7B2C2F548D00B12BEB /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
 		63695E7D2C2F559800B12BEB /* CalendarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPopoverView.swift; sourceTree = "<group>"; };
@@ -154,7 +136,6 @@
 		63C577C82C29D6DF00FC4FDC /* BearHelperLauncherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearHelperLauncherApp.swift; sourceTree = "<group>"; };
 		63C577CA2C29D6DF00FC4FDC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		63C577CC2C29D6E100FC4FDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		63C577CF2C29D6E100FC4FDC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		63C577D12C29D6E100FC4FDC /* BearHelperLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BearHelperLauncher.entitlements; sourceTree = "<group>"; };
 		63C577D52C29D86600FC4FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		63C577D62C2A04D700FC4FDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -182,29 +163,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		632F99C02C35F64B0043D1AE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				632F99C42C35F64B0043D1AE /* BearHelperLauncher.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		632F99C72C35F6980043D1AE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				632F99CB2C35F6980043D1AE /* BearHelperLauncher.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		63C5777D2C298C8A00FC4FDC = {
 			isa = PBXGroup;
 			children = (
 				639CA3212C3AEA76005944F2 /* .swiftlint.yml */,
 				638850542C3AF438004F34E2 /* swiftlint.sb */,
 				635CFEC52C3951C300D0EE04 /* BearClawCore */,
-				632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */,
 				63C577882C298C8A00FC4FDC /* BearHelper */,
 				63C577872C298C8A00FC4FDC /* Products */,
 				63C577BF2C29D40500FC4FDC /* Frameworks */,
@@ -255,7 +219,6 @@
 		63C577BF2C29D40500FC4FDC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */,
 				63C577C72C29D6DF00FC4FDC /* BearHelperLauncher */,
 				63C577C02C29D40500FC4FDC /* ServiceManagement.framework */,
 			);
@@ -278,7 +241,6 @@
 		63C577CE2C29D6E100FC4FDC /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				63C577CF2C29D6E100FC4FDC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -290,7 +252,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63C577952C298C8B00FC4FDC /* Build configuration list for PBXNativeTarget "BearHelper" */;
 			buildPhases = (
-				63F235D32C42D2FF00CDB3EA /* ShellScript */,
 				63C577822C298C8A00FC4FDC /* Sources */,
 				63C577832C298C8A00FC4FDC /* Frameworks */,
 				63C577842C298C8A00FC4FDC /* Resources */,
@@ -366,16 +327,6 @@
 			);
 			productRefGroup = 63C577872C298C8A00FC4FDC /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 632F99C02C35F64B0043D1AE /* Products */;
-					ProjectRef = 632F99BF2C35F64B0043D1AE /* BearHelperLauncher.xcodeproj */;
-				},
-				{
-					ProductGroup = 632F99C72C35F6980043D1AE /* Products */;
-					ProjectRef = 632F99C62C35F6980043D1AE /* BearHelperLauncher.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				63C577852C298C8A00FC4FDC /* BearHelper */,
@@ -383,23 +334,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		632F99C42C35F64B0043D1AE /* BearHelperLauncher.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = BearHelperLauncher.app;
-			remoteRef = 632F99C32C35F64B0043D1AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		632F99CB2C35F6980043D1AE /* BearHelperLauncher.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = BearHelperLauncher.app;
-			remoteRef = 632F99CA2C35F6980043D1AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		63C577842C298C8A00FC4FDC /* Resources */ = {
@@ -409,7 +343,6 @@
 				639CA3222C3AEA76005944F2 /* .swiftlint.yml in Resources */,
 				638850552C3AF438004F34E2 /* swiftlint.sb in Resources */,
 				63C577912C298C8B00FC4FDC /* Preview Assets.xcassets in Resources */,
-				632F99C52C35F6780043D1AE /* BearHelperLauncher.app in Resources */,
 				632F99972C35F2B60043D1AE /* BearHelperLauncher.app in Resources */,
 				63C5778E2C298C8B00FC4FDC /* Assets.xcassets in Resources */,
 			);
@@ -419,32 +352,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63C577D02C29D6E100FC4FDC /* Preview Assets.xcassets in Resources */,
 				63C577CD2C29D6E100FC4FDC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		63F235D32C42D2FF00CDB3EA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n# Ruta al Info.plist del proyecto\nINFOPLIST_FILE=\"/Users/david/Library/Mobile Documents/com~apple~CloudDocs/xcode/BearHelper/BearHelper/Info.plist\"\nTEMP_PLIST=\"/tmp/Info.plist\"\n\n# Mensaje de depuración: Mostrar la ruta del Info.plist\necho \"Info.plist path: \\\"$INFOPLIST_FILE\\\"\"\n\n# Verificar si el archivo Info.plist existe\nif [ ! -f \"$INFOPLIST_FILE\" ]; then\n    echo \"Error: Info.plist not found at path \\\"$INFOPLIST_FILE\\\"\"\n    exit 1\nfi\n\n# Copiar el Info.plist a un directorio temporal\ncp \"$INFOPLIST_FILE\" \"$TEMP_PLIST\"\n\n# Obtener el número de build actual\nCURRENT_BUILD_NUMBER=$(defaults read \"$TEMP_PLIST\" CFBundleVersion)\nEXIT_CODE=$?\n\n# Verificar si el comando anterior fue exitoso\nif [ $EXIT_CODE -ne 0 ]; then\n    echo \"Error: Failed to get current build number from Info.plist\"\n    exit $EXIT_CODE\nfi\n\n# Mensaje de depuración: Mostrar el número de build actual\necho \"Current build number: $CURRENT_BUILD_NUMBER\"\n\n# Incrementa el número de build en 1\nNEW_BUILD_NUMBER=$(($CURRENT_BUILD_NUMBER + 1))\n\n# Mensaje de depuración: Mostrar el nuevo número de build\necho \"New build number: $NEW_BUILD_NUMBER\"\n\n# Actualiza el número de build en el Info.plist temporal\ndefaults write \"$TEMP_PLIST\" CFBundleVersion \"$NEW_BUILD_NUMBER\"\nEXIT_CODE=$?\n\n# Verificar si el comando anterior fue exitoso\nif [ $EXIT_CODE -ne 0 ]; then\n    echo \"Error: Failed to set new build number in Info.plist\"\n    exit $EXIT_CODE\nfi\n\n# Copiar el Info.plist actualizado de vuelta a su ubicación original\ncp \"$TEMP_PLIST\" \"$INFOPLIST_FILE\"\n\n# Mensaje de éxito\necho \"Build number incremented to $NEW_BUILD_NUMBER\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63C577822C298C8A00FC4FDC /* Sources */ = {
@@ -561,6 +473,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 48;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -582,12 +495,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -625,6 +540,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 48;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -640,10 +556,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -657,7 +575,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -679,6 +597,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -692,7 +611,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -714,6 +633,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -725,7 +645,7 @@
 				CODE_SIGN_ENTITLEMENTS = BearHelperLauncher/BearHelperLauncher.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelperLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_PREVIEWS = YES;
@@ -746,6 +666,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -757,7 +678,7 @@
 				CODE_SIGN_ENTITLEMENTS = BearHelperLauncher/BearHelperLauncher.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"BearHelperLauncher/Preview Content\"";
 				DEVELOPMENT_TEAM = 5LHT3P9C4T;
 				ENABLE_PREVIEWS = YES;
@@ -778,6 +699,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
